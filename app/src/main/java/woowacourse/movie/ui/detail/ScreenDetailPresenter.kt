@@ -3,7 +3,6 @@ package woowacourse.movie.ui.detail
 import woowacourse.movie.domain.model.DateRange
 import woowacourse.movie.domain.model.DateTime
 import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.model.ScreenTimePolicy
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.model.Ticket.Companion.MIN_TICKET_COUNT
 import woowacourse.movie.domain.model.WeeklyScreenTimePolicy
@@ -19,7 +18,7 @@ class ScreenDetailPresenter(
     private val movieRepository: MovieRepository,
     private val screenRepository: ScreenRepository,
     private val reservationRepository: ReservationRepository,
-    private val screenTimePolicy: ScreenTimePolicy = WeeklyScreenTimePolicy(),
+    private val screenTimePolicy: WeeklyScreenTimePolicy = WeeklyScreenTimePolicy(),
 ) : ScreenDetailContract.Presenter {
     private var ticket: Ticket = Ticket(MIN_TICKET_COUNT)
     private var dateRange = DateRange(LocalDate.now(), LocalDate.now())

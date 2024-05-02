@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.DateRange
-import woowacourse.movie.domain.model.ScreenTimePolicy
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.model.WeeklyScreenTimePolicy
 import woowacourse.movie.domain.repository.DummyMovies
@@ -116,7 +115,7 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
 
     override fun showDateTimePicker(
         dateRange: DateRange,
-        screenTimePolicy: ScreenTimePolicy,
+        screenTimePolicy: WeeklyScreenTimePolicy,
         selectDateListener: SelectDateListener,
         selectTimeListener: SelectTimeListener,
     ) {

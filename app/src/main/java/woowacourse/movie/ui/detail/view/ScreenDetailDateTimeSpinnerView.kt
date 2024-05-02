@@ -2,117 +2,84 @@ package woowacourse.movie.ui.detail.view
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.DataBindingUtil
 import woowacourse.movie.R
+import woowacourse.movie.databinding.HolderSpinnerDateTimeBinding
 import woowacourse.movie.domain.model.DateRange
 import woowacourse.movie.domain.model.ScreenTimePolicy
-import woowacourse.movie.ui.detail.ScreenDetailContract
+import woowacourse.movie.domain.model.WeeklyScreenTimePolicy
+import woowacourse.movie.ui.detail.view.adapter.DateAdapter
+import woowacourse.movie.ui.detail.view.adapter.TimeAdapter
 import java.time.LocalDate
-import java.time.LocalTime
 
 class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = null) : DateTimeSpinnerView,
     ConstraintLayout(context, attrs) {
-    private lateinit var dateAdapter: ArrayAdapter<LocalDate>
-    lateinit var timeAdapter: ArrayAdapter<LocalTime>
-
-    private val dateSpinner: Spinner by lazy { findViewById(R.id.spn_date) }
-    private val timeSpinner: Spinner by lazy { findViewById(R.id.spn_time) }
-
-    init {
-        inflate(context, R.layout.holder_spinner_date_time, this)
+    private val binding: HolderSpinnerDateTimeBinding by lazy {
+        DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.holder_spinner_date_time, this, true)
     }
+
+    private lateinit var dateAdapter: DateAdapter
+    private lateinit var timeAdapter: TimeAdapter
 
     override fun show(
         dateRange: DateRange,
-        screenTimePolicy: ScreenTimePolicy,
+        screenTimePolicy: WeeklyScreenTimePolicy,
         selectDateListener: SelectDateListener,
         selectTimeListener: SelectTimeListener,
     ) {
-        initDateAdapter(dateRange)
-        initTimeAdapter(dateRange.start, screenTimePolicy)
+        initDateAdapter(
+            dateRange,
+            screenTimePolicy,
+            selectDateListener,
+        )
+        initTimeAdapter(dateRange.start, screenTimePolicy, selectTimeListener)
 
-        initDateSpinnerSelection(screenTimePolicy, selectDateListener)
-        initTimeSpinnerSelection(selectTimeListener)
+        binding.spnDate.onItemSelectedListener = dateAdapter.initClickListener()
+        binding.spnTime.onItemSelectedListener = timeAdapter.initClickListener()
     }
 
     override fun restoreDatePosition(position: Int) {
-        dateSpinner.setSelection(position)
+        binding.spnDate.setSelection(position)
     }
 
     override fun restoreTimePosition(position: Int) {
-        timeSpinner.setSelection(position)
+        binding.spnTime.setSelection(position)
     }
 
     override fun selectedDatePosition(): Int {
-        return dateSpinner.selectedItemPosition
+        return binding.spnDate.selectedItemPosition
     }
 
     override fun selectedTimePosition(): Int {
-        return timeSpinner.selectedItemPosition
+        return binding.spnTime.selectedItemPosition
     }
 
-    private fun initDateAdapter(dateRange: DateRange) {
-        dateAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, dateRange.allDates())
-        dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        dateSpinner.adapter = dateAdapter
+    private fun initDateAdapter(
+        dateRange: DateRange,
+        screenTimePolicy: ScreenTimePolicy,
+        selectDateListener: SelectDateListener,
+    ) {
+        dateAdapter =
+            DateAdapter(context, dateRange, {
+                timeAdapter.clear()
+                timeAdapter.addAll(screenTimePolicy.screeningTimes(it).toList())
+            }, {
+                selectDateListener.selectDate(it)
+            })
+        binding.dateAdapter = dateAdapter
     }
 
     private fun initTimeAdapter(
         date: LocalDate,
-        screenTimePolicy: ScreenTimePolicy,
+        screenTimePolicy: WeeklyScreenTimePolicy,
+        selectTimeListener: SelectTimeListener,
     ) {
         timeAdapter =
-            ArrayAdapter(context, android.R.layout.simple_spinner_item, screenTimePolicy.screeningTimes(date).toList())
-        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        timeSpinner.adapter = timeAdapter
-    }
-
-    private fun initDateSpinnerSelection(
-        screenTimePolicy: ScreenTimePolicy,
-        selectDateListener: SelectDateListener,
-    ) {
-        dateSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    val date = dateAdapter.getItem(position)
-                    date?.let {
-                        timeAdapter.clear()
-                        timeAdapter.addAll(screenTimePolicy.screeningTimes(date).toList())
-                    }
-                    selectDateListener.selectDate(position)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    Log.e("ScreenDetailDateTimeSpinnerView", "Nothing Selected")
-                }
+            TimeAdapter(context, screenTimePolicy, date) {
+                selectTimeListener.selectTime(it)
             }
-    }
-
-    private fun initTimeSpinnerSelection(selectTimeListener: SelectTimeListener) {
-        timeSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    selectTimeListener.selectTime(position)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    Log.e("ScreenDetailDateTimeSpinnerView", "Nothing Selected")
-                }
-            }
+        binding.timeAdapter = timeAdapter
     }
 }

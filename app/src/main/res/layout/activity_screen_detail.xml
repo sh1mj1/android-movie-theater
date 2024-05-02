@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <woowacourse.movie.ui.detail.view.ScreenDetailDateTimeSpinnerView
+    <woowacourse.movie.ui.ScreenDetailDateTimeSpinnerView2
         android:id="@+id/screen_detail_date_time_spinner_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
