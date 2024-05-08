@@ -16,22 +16,26 @@ import woowacourse.movie.ui.Currency
 import java.util.Locale
 
 class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.View {
-    private val presenter: ReservationContract.Presenter by lazy { ReservationPresenter(this, DummyReservation, DummyTheaters()) }
+    private lateinit var presenter: ReservationContract.Presenter
     private val binding: ActivityReservationCompleteBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_reservation_complete)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        initPresenter()
         initView()
     }
 
-    private fun initView() {
+    private fun initPresenter() {
         val reservationId = intent.getIntExtra(PUT_EXTRA_KEY_RESERVATION_ID, DEFAULT_RESERVATION_ID)
         val theaterId =
             intent.getIntExtra(PUT_EXTRA_THEATER_ID_KEY, DEFAULT_THEATER_ID)
-        presenter.loadReservation(reservationId, theaterId)
+        presenter = ReservationPresenter(this, DummyReservation, DummyTheaters(), theaterId, reservationId)
+    }
+
+    private fun initView() {
+        presenter.loadReservation()
     }
 
     override fun showReservation(

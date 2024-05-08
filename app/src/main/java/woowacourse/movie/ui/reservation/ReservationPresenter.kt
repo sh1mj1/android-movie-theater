@@ -5,14 +5,13 @@ import woowacourse.movie.domain.repository.TheaterRepository
 
 class ReservationPresenter(
     private val view: ReservationContract.View,
-    private val repository: ReservationRepository,
+    private val reservationRepository: ReservationRepository,
     private val theaterRepository: TheaterRepository,
+    private val theaterId: Int,
+    private val reservationId: Int,
 ) : ReservationContract.Presenter {
-    override fun loadReservation(
-        reservationId: Int,
-        theaterId: Int,
-    ) {
-        repository.findById(reservationId)
+    override fun loadReservation() {
+        reservationRepository.findById(reservationId)
             .onSuccess {
                 val theaterName = theaterRepository.findById(theaterId).name
 

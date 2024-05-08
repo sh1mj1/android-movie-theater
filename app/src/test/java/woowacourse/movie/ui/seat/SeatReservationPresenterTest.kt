@@ -14,20 +14,29 @@ class SeatReservationPresenterTest {
     @BeforeEach
     fun setUp() {
         mockView = mockk<SeatReservationContract.View>(relaxed = true)
-        presenter =
-            SeatReservationPresenter(
-                view = mockView,
-                screenRepository = FakeScreenRepository(),
-                reservationRepository = FakeReservationRepository(),
-            )
     }
 
     @Test
     fun showSeats() {
+        // given
+        presenter = testSeatReservationPresenterFixture()
+
         // when
         presenter.loadAllSeats()
 
         // then
         verify(exactly = 1) { mockView.showAllSeats(any()) }
     }
+
+    private fun testSeatReservationPresenterFixture(
+        timeReservationId: Int = 0,
+        theaterId: Int = 1,
+    ): SeatReservationPresenter =
+        SeatReservationPresenter(
+            view = mockView,
+            reservationRepository = FakeReservationRepository(),
+            screenRepository = FakeScreenRepository(),
+            timeReservationId = timeReservationId,
+            theaterId = theaterId,
+        )
 }
