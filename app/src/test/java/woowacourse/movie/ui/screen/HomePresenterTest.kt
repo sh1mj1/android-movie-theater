@@ -35,6 +35,6 @@ class HomePresenterTest {
     fun `영화를 상영하는 상영관들을 보여준다`() {
         presenter.loadTheaters(1)
 
-        verify { view.showTheatersBottomSheet(any()) }
+        verify { view.showTheatersScreeningMovie(any()) }
     }
 }

@@ -7,7 +7,7 @@ interface HomeContract {
     interface View {
         fun showScreens(screens: List<ScreenAd>)
 
-        fun showTheatersBottomSheet(screen: Screen)
+        fun showTheatersScreeningMovie(screen: Screen)
     }
 
     interface Presenter {

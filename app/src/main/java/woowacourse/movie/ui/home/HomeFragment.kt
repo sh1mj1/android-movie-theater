@@ -57,7 +57,7 @@ class HomeFragment : Fragment(), HomeContract.View {
         screenAdapter.submitList(screens)
     }
 
-    override fun showTheatersBottomSheet(screen: Screen) {
+    override fun showTheatersScreeningMovie(screen: Screen) {
         val theaterBottomSheet = TheaterBottomSheet.newInstance(screen.id)
         theaterBottomSheet.show(childFragmentManager, "TheaterBottomSheet")
     }

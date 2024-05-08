@@ -48,6 +48,6 @@ class HomePresenter(
 
     override fun loadTheaters(screenId: Int) {
         val screen = screenRepository.findById(screenId).getOrThrow()
-        view.showTheatersBottomSheet(screen)
+        view.showTheatersScreeningMovie(screen)
     }
 }
