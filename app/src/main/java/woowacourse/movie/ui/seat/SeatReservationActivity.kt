@@ -21,7 +21,6 @@ import woowacourse.movie.domain.repository.DummySeats
 import woowacourse.movie.ui.reservation.ReservationCompleteActivity
 
 class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.View {
-    private val presenter = SeatReservationPresenter(this, DummyScreens(DummySeats()), DummyReservation)
     private val binding: ActivitySeatReservationBinding by lazy {
         DataBindingUtil.setContentView(
             this,
@@ -29,22 +28,34 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
         )
     }
 
+    private lateinit var presenter: SeatReservationContract.Presenter
     private lateinit var onReserveButtonClickedListener: OnReserveClickedListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_reservation)
 
-        val timeReservationId = intent.getIntExtra(TIME_RESERVATION_ID, DEFAULT_TIME_RESERVATION_ID)
-        val theaterId = intent.getIntExtra(PUT_EXTRA_THEATER_ID_KEY, DEFAULT_THEATER_ID)
+        initPresenter()
 
         with(presenter) {
-            saveId(theaterId, timeReservationId)
             loadAllSeats()
             loadTimeReservation()
-            onReserveButtonClickedListener = OnReserveClickedListener { reserve(theaterId) }
+            onReserveButtonClickedListener = OnReserveClickedListener { reserve() }
             binding.onReserveClickedListener = onReserveButtonClickedListener
         }
+    }
+
+    private fun initPresenter() {
+        val theaterId = intent.getIntExtra(PUT_EXTRA_THEATER_ID_KEY, DEFAULT_THEATER_ID)
+        val timeReservationId = intent.getIntExtra(TIME_RESERVATION_ID, DEFAULT_TIME_RESERVATION_ID)
+        presenter =
+            SeatReservationPresenter(
+                this,
+                DummyScreens(DummySeats()),
+                DummyReservation,
+                theaterId,
+                timeReservationId,
+            )
     }
 
     override fun showTimeReservation(timeReservation: TimeReservation) {

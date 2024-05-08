@@ -13,26 +13,14 @@ class SeatReservationPresenter(
     private val view: SeatReservationContract.View,
     private val screenRepository: ScreenRepository,
     private val reservationRepository: ReservationRepository,
+    private val theaterId: Int,
+    private val timeReservationId: Int,
 ) : SeatReservationContract.Presenter {
-    private var theaterId: Int = 0
-    private var timeReservationId: Int = 0
+    private val timeReservation: TimeReservation = reservationRepository.loadTimeReservation(timeReservationId)
+    private val loadedAllSeats: Seats = screenRepository.seats(timeReservation.screen.id)
+    private val ticketCount = timeReservation.ticket.count
 
-    private lateinit var timeReservation: TimeReservation
-    private var loadedAllSeats: Seats = Seats()
     private var selectedSeats = Seats()
-    private var ticketCount = 0
-
-    override fun saveId(
-        theaterId: Int,
-        timeReservationId: Int,
-    ) {
-        this.theaterId = theaterId
-        this.timeReservationId = timeReservationId
-
-        timeReservation = reservationRepository.loadTimeReservation(timeReservationId)
-        loadedAllSeats = screenRepository.seats(timeReservation.screen.id)
-        ticketCount = timeReservation.ticket.count
-    }
 
     override fun loadAllSeats() {
         view.showAllSeats(loadedAllSeats)
@@ -91,7 +79,7 @@ class SeatReservationPresenter(
         selectedSeats = selectedSeats.remove(seat)
     }
 
-    override fun reserve(theaterId: Int) {
+    override fun reserve() {
         val screenId = timeReservation.screen.id
 
         reservationRepository.save(

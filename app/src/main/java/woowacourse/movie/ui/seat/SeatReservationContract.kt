@@ -25,11 +25,6 @@ interface SeatReservationContract {
     }
 
     interface Presenter {
-        fun saveId(
-            theaterId: Int,
-            timeReservationId: Int,
-        )
-
         fun loadAllSeats()
 
         fun loadTimeReservation()
@@ -39,6 +34,6 @@ interface SeatReservationContract {
             seatView: android.view.View,
         )
 
-        fun reserve(theaterId: Int)
+        fun reserve()
     }
 }
