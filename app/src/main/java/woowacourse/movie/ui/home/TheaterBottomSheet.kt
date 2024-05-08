@@ -13,12 +13,12 @@ import woowacourse.movie.domain.repository.DummyTheaters
 import woowacourse.movie.ui.detail.ScreenDetailActivity
 import woowacourse.movie.ui.home.adapter.TheaterAdapter
 
-class TheaterBottomSheet : BottomSheetDialogFragment(), TheatersBottomSheetContract.View {
+class TheaterBottomSheet : BottomSheetDialogFragment(), TheatersScreeningMovieContract.View {
     private var _binding: BottomSheetTheaterBinding? = null
     private val binding get() = _binding!!
 
-    private val presenter: TheatersBottomSheetContract.Presenter by lazy {
-        TheaterBottomSheetPresenter(this, DummyScreens(), DummyTheaters())
+    private val presenter: TheatersScreeningMovieContract.Presenter by lazy {
+        TheatersScreeningMoviePresenter(this, DummyScreens(), DummyTheaters())
     }
     private lateinit var theaterAdapter: TheaterAdapter
 

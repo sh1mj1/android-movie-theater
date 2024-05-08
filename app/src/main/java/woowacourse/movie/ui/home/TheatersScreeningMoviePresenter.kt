@@ -4,11 +4,11 @@ import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.repository.ScreenRepository
 import woowacourse.movie.domain.repository.TheaterRepository
 
-class TheaterBottomSheetPresenter(
-    private val view: TheatersBottomSheetContract.View,
+class TheatersScreeningMoviePresenter(
+    private val view: TheatersScreeningMovieContract.View,
     private val screenRepository: ScreenRepository,
     private val theaterRepository: TheaterRepository,
-) : TheatersBottomSheetContract.Presenter {
+) : TheatersScreeningMovieContract.Presenter {
     private var screenId: Int = 0
     private lateinit var loadedScreen: Screen
 

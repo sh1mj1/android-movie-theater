@@ -3,7 +3,7 @@ package woowacourse.movie.ui.home
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Theaters
 
-interface TheatersBottomSheetContract {
+interface TheatersScreeningMovieContract {
     interface View {
         fun initTheaterAdapter(screen: Screen)
 
