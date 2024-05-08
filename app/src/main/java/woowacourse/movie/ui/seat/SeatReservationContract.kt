@@ -1,7 +1,6 @@
 package woowacourse.movie.ui.seat
 
 import woowacourse.movie.domain.model.Position
-import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.domain.model.TimeReservation
 
@@ -11,9 +10,9 @@ interface SeatReservationContract {
 
         fun showAllSeats(seats: Seats)
 
-        fun showSelectedSeat(seat: Seat)
+        fun showSelectedSeat(seatView: android.view.View)
 
-        fun showDeselectedSeat(seat: Seat)
+        fun showDeselectedSeat(seatView: android.view.View)
 
         fun showTotalPrice(totalPrice: Int)
 
@@ -34,9 +33,15 @@ interface SeatReservationContract {
 
         fun loadTimeReservation()
 
-        fun selectSeat(position: Position)
+        fun selectSeat(
+            position: Position,
+            seatView: android.view.View,
+        )
 
-        fun deselectSeat(position: Position)
+        fun deselectSeat(
+            position: Position,
+            seatView: android.view.View,
+        )
 
         fun calculateTotalPrice()
 

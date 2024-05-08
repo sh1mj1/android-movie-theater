@@ -3,6 +3,7 @@ package woowacourse.movie.ui.seat
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -70,30 +71,30 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
         val seatsGridLayout = binding.rvSeatReservationSeats
         seatsGridLayout.layoutManager = GridLayoutManager(this, seats.maxColumn())
 
-        seatsAdapter =
-            SeatsAdapter(
-                onSeatSelectedListener =
-                    object : OnSeatSelectedListener {
-                        override fun onSeatSelected(seat: Seat) {
-                            presenter.selectSeat(seat.position)
-                        }
+        seatsAdapter = SeatsAdapter(
+            object : OnSeatSelectedListener {
+                override fun onSeatSelected(seat: Seat, seatView: View) {
+                    presenter.selectSeat(seat.position, seatView)
+                }
 
-                        override fun onSeatDeselected(seat: Seat) {
-                            presenter.deselectSeat(seat.position)
-                        }
-                    },
-            )
+                override fun onSeatDeselected(seat: Seat, seatView: View) {
+                    presenter.deselectSeat(seat.position, seatView)
+                }
+            }
+        )
 
         seatsGridLayout.adapter = seatsAdapter
 
         seatsAdapter.submitList(seats.seats)
     }
 
-    override fun showSelectedSeat(seat: Seat) {
+    override fun showSelectedSeat(seatView: View) {
+        seatView.isSelected = true
         presenter.calculateTotalPrice()
     }
 
-    override fun showDeselectedSeat(seat: Seat) {
+    override fun showDeselectedSeat(seatView: View) {
+        seatView.isSelected = false
         presenter.calculateTotalPrice()
     }
 

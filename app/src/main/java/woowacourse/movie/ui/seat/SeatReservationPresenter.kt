@@ -1,5 +1,6 @@
 package woowacourse.movie.ui.seat
 
+import android.view.View
 import woowacourse.movie.domain.model.Position
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seats
@@ -29,7 +30,10 @@ class SeatReservationPresenter(
         view.showTotalPrice(selectedSeats.totalPrice())
     }
 
-    override fun selectSeat(position: Position) {
+    override fun selectSeat(
+        position: Position,
+        seatView: View,
+    ) {
         val seat = loadedAllSeats.findSeat(position)
 
         if (selectedSeats.seats.size >= ticketCount) {
@@ -37,15 +41,18 @@ class SeatReservationPresenter(
             return
         }
         selectedSeats = selectedSeats.add(seat)
-        view.showSelectedSeat(seat)
+        view.showSelectedSeat(seatView)
     }
 
-    override fun deselectSeat(position: Position) {
+    override fun deselectSeat(
+        position: Position,
+        seatView: View,
+    ) {
         val seat = loadedAllSeats.findSeat(position)
         if (selectedSeats.seats.contains(seat)) {
             selectedSeats = selectedSeats.remove(seat)
         }
-        view.showDeselectedSeat(seat)
+        view.showDeselectedSeat(seatView)
     }
 
     override fun calculateTotalPrice() {
