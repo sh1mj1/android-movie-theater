@@ -5,12 +5,11 @@ data class Theaters(val theaters: List<Theater>) {
 
     fun screeningTheater(movie: Movie): Theaters =
         Theaters(
-            theaters.asSequence()
+            theaters
                 .filter { theater ->
                     theater.screens.any { screen ->
                         screen.movie.id == movie.id
                     }
-                }
-                .toList(),
+                },
         )
 }
