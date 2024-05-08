@@ -4,25 +4,22 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import woowacourse.movie.databinding.HolderTheaterBinding
-import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.model.Theater
+import woowacourse.movie.domain.model.TheaterScreeningCount
 
-class TheaterAdapter(
-    private val screen: Screen,
-    private val onTheaterClicked: (theaterId: Int) -> Unit,
-) : ListAdapter<Theater, TheaterViewHolder>(TheaterDiffUtil()) {
+class TheaterScreeningCountAdapter(private val onTheaterClicked: (theaterId: Int) -> Unit) :
+    ListAdapter<TheaterScreeningCount, TheaterScreeningCountViewHolder>(TheaterScreeningCountDiffUtil()) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): TheaterViewHolder {
+    ): TheaterScreeningCountViewHolder {
         val binding = HolderTheaterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TheaterViewHolder(binding, onTheaterClicked)
+        return TheaterScreeningCountViewHolder(binding, onTheaterClicked)
     }
 
     override fun onBindViewHolder(
-        holder: TheaterViewHolder,
+        holder: TheaterScreeningCountViewHolder,
         position: Int,
     ) {
-        holder.bind(getItem(position), screen)
+        holder.bind(getItem(position))
     }
 }

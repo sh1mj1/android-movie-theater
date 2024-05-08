@@ -6,19 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import woowacourse.movie.databinding.BottomSheetTheaterBinding
-import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.model.Theaters
+import woowacourse.movie.domain.model.TheaterScreeningCount
 import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.domain.repository.DummyTheaters
 import woowacourse.movie.ui.detail.ScreenDetailActivity
-import woowacourse.movie.ui.home.adapter.TheaterAdapter
+import woowacourse.movie.ui.home.adapter.TheaterScreeningCountAdapter
 
 class TheaterScreeningMovieBottomSheet : BottomSheetDialogFragment(), TheatersScreeningMovieContract.View {
     private var _binding: BottomSheetTheaterBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var presenter: TheatersScreeningMoviePresenter
-    private lateinit var theaterAdapter: TheaterAdapter
+
+    private lateinit var theaterScreeningCountAdapter: TheaterScreeningCountAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,23 +41,20 @@ class TheaterScreeningMovieBottomSheet : BottomSheetDialogFragment(), TheatersSc
         savedInstanceState: Bundle?,
     ) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.initTheaterAdapter()
+        initTheaterAdapter()
         presenter.loadTheaters()
     }
 
-    override fun initTheaterAdapter(screen: Screen) {
-        theaterAdapter =
-            TheaterAdapter(screen) { theaterId ->
+    private fun initTheaterAdapter() {
+        theaterScreeningCountAdapter =
+            TheaterScreeningCountAdapter { theaterId ->
                 presenter.selectTheater(theaterId)
             }
-        binding.rvTheater.adapter = theaterAdapter
+        binding.rvTheater.adapter = theaterScreeningCountAdapter
     }
 
-    override fun showTheaters(
-        screen: Screen,
-        theaters: Theaters,
-    ) {
-        theaterAdapter.submitList(theaters.theaters)
+    override fun showTheatersScreeningcount(theaterScreeningCount: List<TheaterScreeningCount>) {
+        theaterScreeningCountAdapter.submitList(theaterScreeningCount)
     }
 
     override fun showScreenDetail(

@@ -1,16 +1,10 @@
 package woowacourse.movie.ui.home
 
-import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.model.Theaters
+import woowacourse.movie.domain.model.TheaterScreeningCount
 
 interface TheatersScreeningMovieContract {
     interface View {
-        fun initTheaterAdapter(screen: Screen)
-
-        fun showTheaters(
-            screen: Screen,
-            theaters: Theaters,
-        )
+        fun showTheatersScreeningcount(theaterScreeningCount: List<TheaterScreeningCount>)
 
         fun showScreenDetail(
             screenId: Int,
@@ -19,8 +13,6 @@ interface TheatersScreeningMovieContract {
     }
 
     interface Presenter {
-        fun initTheaterAdapter()
-
         fun loadTheaters()
 
         fun selectTheater(theaterId: Int)

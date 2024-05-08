@@ -10,8 +10,8 @@
             type="woowacourse.movie.domain.model.Theater" />
 
         <variable
-            name="screen"
-            type="woowacourse.movie.domain.model.Screen" />
+            name="screeningCount"
+            type="int" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="@{String.valueOf(theater.allScreeningTimeCount(screen)) + @string/number_of_screening_times}"
+            android:text="@{String.valueOf(screeningCount) + @string/number_of_screening_times}"
             android:textColor="@color/black"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
