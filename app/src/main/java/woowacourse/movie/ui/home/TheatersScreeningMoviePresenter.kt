@@ -8,14 +8,9 @@ class TheatersScreeningMoviePresenter(
     private val view: TheatersScreeningMovieContract.View,
     private val screenRepository: ScreenRepository,
     private val theaterRepository: TheaterRepository,
+    private val screenId: Int,
 ) : TheatersScreeningMovieContract.Presenter {
-    private var screenId: Int = 0
-    private lateinit var loadedScreen: Screen
-
-    override fun saveScreenId(screenId: Int) {
-        this.screenId = screenId
-        loadedScreen = loadedScreen()
-    }
+    private val loadedScreen: Screen = loadedScreen()
 
     override fun initTheaterAdapter() {
         view.initTheaterAdapter(loadedScreen)

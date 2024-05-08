@@ -19,8 +19,6 @@ interface TheatersScreeningMovieContract {
     }
 
     interface Presenter {
-        fun saveScreenId(screenId: Int)
-
         fun initTheaterAdapter()
 
         fun loadTheaters()

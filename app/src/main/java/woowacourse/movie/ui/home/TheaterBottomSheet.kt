@@ -17,16 +17,14 @@ class TheaterBottomSheet : BottomSheetDialogFragment(), TheatersScreeningMovieCo
     private var _binding: BottomSheetTheaterBinding? = null
     private val binding get() = _binding!!
 
-    private val presenter: TheatersScreeningMovieContract.Presenter by lazy {
-        TheatersScreeningMoviePresenter(this, DummyScreens(), DummyTheaters())
-    }
+    private lateinit var presenter: TheatersScreeningMoviePresenter
     private lateinit var theaterAdapter: TheaterAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val screenId = arguments?.getInt(ARGUMENT_SCREEN_ID) ?: throw IllegalArgumentException("ScreenId is required")
-        presenter.saveScreenId(screenId)
+        presenter = TheatersScreeningMoviePresenter(this, DummyScreens(), DummyTheaters(), screenId)
     }
 
     override fun onCreateView(
