@@ -5,7 +5,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.DateRange
-import woowacourse.movie.domain.model.FakeImage
+import woowacourse.movie.domain.model.Image
 import woowacourse.movie.domain.repository.FakeMovieRepository
 import woowacourse.movie.domain.repository.FakeReservationRepository
 import woowacourse.movie.domain.repository.FakeScreenRepository
@@ -37,7 +37,7 @@ class ScreenDetailPresenterTest {
                     title = "title1",
                     runningTime = 1,
                     description = "description1",
-                    image = FakeImage("1"),
+                    image = Image.StringImage("1"),
                 ),
             dateRange = DateRange(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 3, 3)),
         )

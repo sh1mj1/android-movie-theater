@@ -1,7 +1,6 @@
 package woowacourse.movie.ui
 
 import woowacourse.movie.domain.model.DateRange
-import woowacourse.movie.domain.model.DrawableImage
 import woowacourse.movie.domain.model.Image
 import woowacourse.movie.domain.model.Screen
 
@@ -14,7 +13,7 @@ sealed interface ScreenAd {
 
     data class Advertisement(
         val id: Int = 0,
-        val advertisement: DrawableImage,
+        val advertisement: Image.DrawableImage,
     ) : ScreenAd
 }
 

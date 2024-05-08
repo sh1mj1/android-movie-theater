@@ -1,7 +1,6 @@
 package woowacourse.movie.domain.repository
 
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.DrawableImage
 import woowacourse.movie.domain.model.Image
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MoviePoster
@@ -34,9 +33,9 @@ class DummyMovies : MovieRepository {
 
     private val movieImages =
         listOf(
-            MoviePoster(1, DrawableImage(R.drawable.img_poster)),
-            MoviePoster(2, DrawableImage(R.drawable.ic_launcher_foreground)),
-            MoviePoster(3, DrawableImage(R.drawable.ic_launcher_background)),
+            MoviePoster(1, Image.DrawableImage(R.drawable.img_poster)),
+            MoviePoster(2, Image.DrawableImage(R.drawable.ic_launcher_foreground)),
+            MoviePoster(3, Image.DrawableImage(R.drawable.ic_launcher_background)),
         )
 
     override fun findById(id: Int): Movie = movies.find { it.id == id } ?: throw NoSuchElementException()

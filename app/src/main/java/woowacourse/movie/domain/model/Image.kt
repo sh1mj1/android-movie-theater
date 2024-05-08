@@ -2,12 +2,12 @@ package woowacourse.movie.domain.model
 
 import androidx.annotation.DrawableRes
 
-interface Image<out T> {
-    val imageSource: T
+sealed class Image<out T> {
+    abstract val imageSource: T
+
+    data class DrawableImage(
+        @DrawableRes override val imageSource: Int,
+    ) : Image<Int>()
+
+    data class StringImage(override val imageSource: String) : Image<String>()
 }
-
-class DrawableImage(
-    @DrawableRes override val imageSource: Int,
-) : Image<Int>
-
-class StringImage(override val imageSource: String) : Image<String>

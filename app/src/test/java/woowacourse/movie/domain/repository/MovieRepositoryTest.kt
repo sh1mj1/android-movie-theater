@@ -2,7 +2,7 @@ package woowacourse.movie.domain.repository
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.model.FakeImage
+import woowacourse.movie.domain.model.Image
 import woowacourse.movie.domain.model.Movie
 
 class MovieRepositoryTest {
@@ -11,7 +11,7 @@ class MovieRepositoryTest {
     @Test
     fun `영화 id 로 영화 포스터를 찾는다`() {
         val actual = movieRepository2.imageSrc(1)
-        assertThat(actual).isEqualTo(FakeImage("1"))
+        assertThat(actual).isEqualTo(Image.StringImage("1"))
     }
 
     @Test
