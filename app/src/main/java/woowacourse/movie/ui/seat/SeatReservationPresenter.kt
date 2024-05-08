@@ -38,7 +38,7 @@ class SeatReservationPresenter(
 
         if (toggleSeatSelection(seat, seatView)) {
             view.activateReservation(selectedSeats.count() == ticketCount)
-            view.updateTotalPrice(selectedSeats.totalPrice())
+            view.showTotalPrice(selectedSeats.totalPrice())
         }
     }
 
@@ -58,7 +58,7 @@ class SeatReservationPresenter(
             }
 
             else -> {
-                view.showToast(IllegalArgumentException("exceed ticket count that can be reserved."))
+                view.showSelectedSeatFail(IllegalArgumentException("exceed ticket count that can be reserved."))
                 false
             }
         }
@@ -87,7 +87,7 @@ class SeatReservationPresenter(
             selectedSeats,
             timeReservation.dateTime,
         ).onSuccess { reservationId ->
-            view.navigateToCompleteReservation(reservationId, theaterId)
+            view.showCompleteReservation(reservationId, theaterId)
         }.onFailure { e ->
             view.showSeatReservationFail(e)
         }

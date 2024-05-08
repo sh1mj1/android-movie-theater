@@ -10,18 +10,18 @@ interface SeatReservationContract {
 
         fun showAllSeats(seats: Seats)
 
-        fun updateTotalPrice(totalPrice: Int)
+        fun showTotalPrice(totalPrice: Int)
 
         fun activateReservation(boolean: Boolean)
 
-        fun navigateToCompleteReservation(
+        fun showCompleteReservation(
             reservationId: Int,
             theaterId: Int,
         )
 
         fun showSeatReservationFail(throwable: Throwable)
 
-        fun showToast(e: Throwable)
+        fun showSelectedSeatFail(throwable: Throwable)
     }
 
     interface Presenter {

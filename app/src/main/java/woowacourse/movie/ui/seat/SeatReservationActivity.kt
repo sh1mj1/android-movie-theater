@@ -62,7 +62,7 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
         binding.timeReservation = timeReservation
     }
 
-    override fun updateTotalPrice(totalPrice: Int) {
+    override fun showTotalPrice(totalPrice: Int) {
         binding.totalPrice = totalPrice
     }
 
@@ -109,7 +109,7 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
         }
     }
 
-    override fun navigateToCompleteReservation(
+    override fun showCompleteReservation(
         reservationId: Int,
         theaterId: Int,
     ) {
@@ -133,7 +133,11 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
         showToast(throwable)
     }
 
-    override fun showToast(e: Throwable) {
+    override fun showSelectedSeatFail(throwable: Throwable) {
+        showToast(throwable)
+    }
+
+    private fun showToast(e: Throwable) {
         Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
     }
 
