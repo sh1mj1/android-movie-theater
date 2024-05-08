@@ -23,6 +23,6 @@ interface TheatersScreeningMovieContract {
 
         fun loadTheaters()
 
-        fun onTheaterSelected(theaterId: Int)
+        fun selectTheater(theaterId: Int)
     }
 }

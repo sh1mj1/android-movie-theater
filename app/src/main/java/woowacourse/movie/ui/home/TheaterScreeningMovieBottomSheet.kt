@@ -48,7 +48,7 @@ class TheaterScreeningMovieBottomSheet : BottomSheetDialogFragment(), TheatersSc
     override fun initTheaterAdapter(screen: Screen) {
         theaterAdapter =
             TheaterAdapter(screen) { theaterId ->
-                presenter.onTheaterSelected(theaterId)
+                presenter.selectTheater(theaterId)
             }
         binding.rvTheater.adapter = theaterAdapter
     }
