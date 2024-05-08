@@ -9,13 +9,7 @@ interface ReservationContract {
             theaterName: String,
         )
 
-        fun showToastMessage(message: String)
-
-        fun showSnackBar(message: String)
-
-        fun goToBack(message: String)
-
-        fun unexpectedFinish(message: String)
+        fun showReservationFail(throwable: Throwable)
     }
 
     interface Presenter {
