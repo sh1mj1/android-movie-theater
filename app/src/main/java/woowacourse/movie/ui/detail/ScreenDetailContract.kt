@@ -18,18 +18,14 @@ interface ScreenDetailContract {
             onTimeSelectedListener: OnItemSelectedListener,
         )
 
-        fun navigateToSeatsReservation(
+        fun showSeatsReservation(
             timeReservationId: Int,
             theaterId: Int,
         )
 
-        fun showToastMessage(e: Throwable)
+        fun showScreenFail(e: Throwable)
 
-        fun showSnackBar(e: Throwable)
-
-        fun goToBack(e: Throwable)
-
-        fun unexpectedFinish(e: Throwable)
+        fun showTicketFail(e: Throwable)
     }
 
     interface Presenter {

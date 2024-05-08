@@ -126,7 +126,7 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         dateTimeSpinnerView.show(dateRange, screenTimePolicy, onDateSelectedListener, onTimeSelectedListener)
     }
 
-    override fun navigateToSeatsReservation(
+    override fun showSeatsReservation(
         timeReservationId: Int,
         theaterId: Int,
     ) {
@@ -137,17 +137,18 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         )
     }
 
-    override fun goToBack(e: Throwable) {
+    override fun showScreenFail(e: Throwable) {
+        when (e) {
+            is NoSuchElementException -> showToastMessage(e)
+            else -> unexpectedFinish(e)
+        }
+    }
+
+    override fun showTicketFail(e: Throwable) {
         showToastMessage(e)
-        finish()
     }
 
-    override fun unexpectedFinish(e: Throwable) {
-        showSnackBar(e)
-        finish()
-    }
-
-    override fun showToastMessage(e: Throwable) {
+    private fun showToastMessage(e: Throwable) {
         when (e) {
             is NoSuchElementException -> Toast.makeText(this, "해당하는 상영 정보가 없습니다!!", Toast.LENGTH_SHORT).show()
             is IllegalArgumentException ->
@@ -161,7 +162,12 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         }
     }
 
-    override fun showSnackBar(e: Throwable) {
+    private fun unexpectedFinish(e: Throwable) {
+        showSnackBar(e)
+        finish()
+    }
+
+    private fun showSnackBar(e: Throwable) {
         when (e) {
             is NoSuchElementException ->
                 Snackbar.make(

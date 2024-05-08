@@ -25,7 +25,6 @@ class ScreenDetailPresenter(
     private var ticket: Ticket = Ticket(MIN_TICKET_COUNT)
 
     private var datePosition: Int = 0
-
     private var timePosition: Int = 0
 
     override fun loadScreen() {
@@ -33,10 +32,7 @@ class ScreenDetailPresenter(
             view.showScreen(loadedScreen.toDetailUI(movieRepository.imageSrc(loadedScreen.movie.id)))
             view.showDateTimePicker(dateRange, screenTimePolicy, ::saveDatePosition, ::saveTimePosition)
         } catch (e: Exception) {
-            when (e) {
-                is NoSuchElementException -> view.goToBack(e)
-                else -> view.unexpectedFinish(e)
-            }
+            view.showScreenFail(e)
         }
     }
 
@@ -70,7 +66,7 @@ class ScreenDetailPresenter(
             ticket = ticket.increase()
             view.showTicket(ticket.count)
         } catch (e: IllegalArgumentException) {
-            view.showToastMessage(e)
+            view.showTicketFail(e)
         }
     }
 
@@ -79,7 +75,7 @@ class ScreenDetailPresenter(
             ticket = ticket.decrease()
             view.showTicket(ticket.count)
         } catch (e: IllegalArgumentException) {
-            view.showToastMessage(e)
+            view.showTicketFail(e)
         }
     }
 
@@ -95,13 +91,9 @@ class ScreenDetailPresenter(
                     time = screenTimePolicy.screeningTimes(date)[timePosition],
                 ),
         ).onSuccess { timeReservationId ->
-            view.navigateToSeatsReservation(timeReservationId, theaterId)
+            view.showSeatsReservation(timeReservationId, theaterId)
         }.onFailure { e ->
-            view.showToastMessage(e)
+            view.showScreenFail(e)
         }
-    }
-
-    companion object {
-        private const val TAG = "ScreenDetailPresenter"
     }
 }

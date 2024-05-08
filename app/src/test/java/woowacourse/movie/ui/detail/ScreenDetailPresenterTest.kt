@@ -81,7 +81,7 @@ class ScreenDetailPresenterTest {
         presenter.minusTicket()
 
         // then
-        verify(exactly = 1) { mockView.showToastMessage(any()) }
+        verify(exactly = 1) { mockView.showTicketFail(any()) }
     }
 
     @Test
@@ -96,7 +96,7 @@ class ScreenDetailPresenterTest {
         presenter.plusTicket()
 
         // then
-        verify(exactly = 1) { mockView.showToastMessage(any()) }
+        verify(exactly = 1) { mockView.showTicketFail(any()) }
     }
 
     @Test
@@ -108,7 +108,7 @@ class ScreenDetailPresenterTest {
         presenter.reserve()
 
         // then
-        verify(exactly = 1) { mockView.navigateToSeatsReservation(2, any()) }
+        verify(exactly = 1) { mockView.showSeatsReservation(2, any()) }
     }
 
     private fun testScreenDetailPresenterFixture(
