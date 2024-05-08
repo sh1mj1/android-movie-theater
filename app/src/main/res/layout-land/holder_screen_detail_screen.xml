@@ -6,7 +6,7 @@
 
     <data>
 
-        <import type="woowacourse.movie.ui.DateRangeUi" />
+        <import type="woowacourse.movie.ui.DateRangeFormatter" />
 
         <variable
             name="screenDetailUi"
@@ -73,7 +73,7 @@
                     android:id="@+id/tv_screen_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{DateRangeUi.dateRangeFormat(screenDetailUi.dateRange)}"
+                    android:text="@{DateRangeFormatter.dateRangeFormat(screenDetailUi.dateRange)}"
                     android:textSize="12dp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_screen_date_guide"
                     app:layout_constraintStart_toEndOf="@+id/tv_screen_date_guide"

@@ -1,4 +1,4 @@
-@file:JvmName("DateRangeUi")
+@file:JvmName("DateRangeFormatter")
 
 package woowacourse.movie.ui
 
