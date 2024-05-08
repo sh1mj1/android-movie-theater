@@ -25,6 +25,6 @@ class TheatersScreeningMoviePresenter(
     private fun loadedScreen() = screenRepository.findById(screenId).getOrThrow()
 
     override fun onTheaterSelected(theaterId: Int) {
-        view.navigateToScreenDetail(screenId, theaterId)
+        view.showScreenDetail(screenId, theaterId)
     }
 }

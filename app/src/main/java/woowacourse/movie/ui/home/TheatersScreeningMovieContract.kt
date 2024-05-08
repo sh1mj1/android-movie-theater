@@ -12,7 +12,7 @@ interface TheatersScreeningMovieContract {
             theaters: Theaters,
         )
 
-        fun navigateToScreenDetail(
+        fun showScreenDetail(
             screenId: Int,
             theaterId: Int,
         )
