@@ -38,23 +38,26 @@
             android:gravity="center"
             android:text="@string/screen"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/gl_seat_reservation_seats"
+            app:layout_constraintBottom_toTopOf="@+id/rv_seat_reservation_seats"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <GridLayout
-            android:id="@+id/gl_seat_reservation_seats"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_seat_reservation_seats"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginHorizontal="34dp"
             android:layout_marginBottom="96dp"
             android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/cl_seat_reservation_bottom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_seat_reservation_screen"
+            app:spanCount="4"
             tools:columnCount="4"
+            tools:listitem="@layout/holder_seat"
             tools:rowCount="5" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -63,8 +66,7 @@
             android:layout_height="80dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_seat_reservation_complete"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gl_seat_reservation_seats">
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:id="@+id/tv_seat_reservation_movie_title"

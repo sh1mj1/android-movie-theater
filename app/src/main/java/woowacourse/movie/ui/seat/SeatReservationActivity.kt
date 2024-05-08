@@ -3,22 +3,22 @@ package woowacourse.movie.ui.seat
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
-import android.widget.GridLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivitySeatReservationBinding
-import woowacourse.movie.domain.model.Position
+import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.domain.model.TimeReservation
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.domain.repository.DummySeats
 import woowacourse.movie.ui.reservation.ReservationCompleteActivity
+import woowacourse.movie.ui.seat.adapter.OnSeatSelectedListener
+import woowacourse.movie.ui.seat.adapter.SeatsAdapter
 
 class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.View {
     private val binding: ActivitySeatReservationBinding by lazy {
@@ -31,10 +31,10 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
     private lateinit var presenter: SeatReservationContract.Presenter
     private lateinit var onReserveButtonClickedListener: OnReserveClickedListener
 
+    private lateinit var seatsAdapter: SeatsAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_seat_reservation)
-
         initPresenter()
 
         with(presenter) {
@@ -67,39 +67,39 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
     }
 
     override fun showAllSeats(seats: Seats) {
-        val seatsGridLayout = binding.glSeatReservationSeats
-        val maxRow = seats.maxRow()
-        val maxColumn = seats.maxColumn()
+        val seatsGridLayout = binding.rvSeatReservationSeats
+        seatsGridLayout.layoutManager = GridLayoutManager(this, seats.maxColumn())
 
-        seatsGridLayout.columnCount = maxColumn
-        seatsGridLayout.rowCount = maxRow
-
-        for (row in 0 until maxRow) {
-            for (column in 0 until maxColumn) {
-                val textView =
-                    TextView(this).apply {
-                        layoutParams =
-                            GridLayout.LayoutParams().apply {
-                                width = 0
-                                height = 0
-                                columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
-                                rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
-                            }
-                        setBackgroundResource(R.drawable.holder_seat_selector)
-                        setOnClickListener {
-                            presenter.selectSeat(position = Position(row, column), this)
+        seatsAdapter =
+            SeatsAdapter(
+                onSeatSelectedListener =
+                    object : OnSeatSelectedListener {
+                        override fun onSeatSelected(seat: Seat) {
+                            presenter.selectSeat(seat.position)
                         }
-                        gravity = Gravity.CENTER
-                        text = "${'A' + row} ${column + 1}"
-                    }
-                seatsGridLayout.addView(textView)
-            }
-        }
+
+                        override fun onSeatDeselected(seat: Seat) {
+                            presenter.deselectSeat(seat.position)
+                        }
+                    },
+            )
+
+        seatsGridLayout.adapter = seatsAdapter
+
+        seatsAdapter.submitList(seats.seats)
     }
 
-    override fun activateReservation(boolean: Boolean) {
+    override fun showSelectedSeat(seat: Seat) {
+        presenter.calculateTotalPrice()
+    }
+
+    override fun showDeselectedSeat(seat: Seat) {
+        presenter.calculateTotalPrice()
+    }
+
+    override fun activateReservation(activated: Boolean) {
         with(binding.btnSeatReservationComplete) {
-            if (boolean) {
+            if (activated) {
                 isEnabled = true
                 setBackgroundColor(getColor(R.color.complete_activated))
             } else {

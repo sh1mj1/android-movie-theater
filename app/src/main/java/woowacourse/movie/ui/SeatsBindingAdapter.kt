@@ -15,3 +15,11 @@ fun textUiFormat(
             postfix = " |",
         ) { "${'A' + it.position.row}${it.position.col + 1}" }
 }
+
+@BindingAdapter("seat:seatName")
+fun seatName(
+    textView: TextView,
+    seat: Seat,
+) {
+    textView.text = "${'A' + seat.position.row} ${seat.position.col + 1}"
+}

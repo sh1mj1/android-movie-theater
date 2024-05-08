@@ -1,9 +1,7 @@
 package woowacourse.movie.ui.seat
 
-import android.view.View
 import woowacourse.movie.domain.model.Position
 import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.domain.model.TimeReservation
 import woowacourse.movie.domain.repository.ReservationRepository
@@ -14,7 +12,7 @@ class SeatReservationPresenter(
     private val screenRepository: ScreenRepository,
     private val reservationRepository: ReservationRepository,
     private val theaterId: Int,
-    private val timeReservationId: Int,
+    timeReservationId: Int,
 ) : SeatReservationContract.Presenter {
     private val timeReservation: TimeReservation = reservationRepository.loadTimeReservation(timeReservationId)
     private val loadedAllSeats: Seats = screenRepository.seats(timeReservation.screen.id)
@@ -28,55 +26,35 @@ class SeatReservationPresenter(
 
     override fun loadTimeReservation() {
         view.showTimeReservation(timeReservation)
+        view.showTotalPrice(selectedSeats.totalPrice())
     }
 
-    override fun selectSeat(
-        position: Position,
-        seatView: View,
-    ) {
+    override fun selectSeat(position: Position) {
         val seat = loadedAllSeats.findSeat(position)
 
-        if (toggleSeatSelection(seat, seatView)) {
-            view.activateReservation(selectedSeats.count() == ticketCount)
-            view.showTotalPrice(selectedSeats.totalPrice())
+        if (selectedSeats.seats.size >= ticketCount) {
+            view.showSelectedSeatFail(IllegalArgumentException("exceed ticket count that can be reserved."))
+            return
         }
-    }
-
-    private fun toggleSeatSelection(
-        seat: Seat,
-        seatView: View,
-    ): Boolean =
-        when {
-            selectedSeats.seats.contains(seat) -> {
-                deselectSeat(seatView, seat)
-                true
-            }
-
-            selectedSeats.seats.size < ticketCount -> {
-                selectSeat(seatView, seat)
-                true
-            }
-
-            else -> {
-                view.showSelectedSeatFail(IllegalArgumentException("exceed ticket count that can be reserved."))
-                false
-            }
-        }
-
-    private fun selectSeat(
-        seatView: View,
-        seat: Seat,
-    ) {
-        seatView.isSelected = true
         selectedSeats = selectedSeats.add(seat)
+        view.showSelectedSeat(seat)
     }
 
-    private fun deselectSeat(
-        seatView: View,
-        seat: Seat,
-    ) {
-        seatView.isSelected = false
-        selectedSeats = selectedSeats.remove(seat)
+    override fun deselectSeat(position: Position) {
+        val seat = loadedAllSeats.findSeat(position)
+        if (selectedSeats.seats.contains(seat)) {
+            selectedSeats = selectedSeats.remove(seat)
+        }
+        view.showDeselectedSeat(seat)
+    }
+
+    override fun calculateTotalPrice() {
+        view.showTotalPrice(selectedSeats.totalPrice())
+        if (selectedSeats.count() == ticketCount) {
+            view.activateReservation(true)
+        } else {
+            view.activateReservation(false)
+        }
     }
 
     override fun reserve() {
