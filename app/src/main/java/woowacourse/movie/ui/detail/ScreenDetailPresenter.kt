@@ -1,6 +1,5 @@
 package woowacourse.movie.ui.detail
 
-import woowacourse.movie.domain.model.DateRange
 import woowacourse.movie.domain.model.DateTime
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.ScreenTimePolicy
@@ -18,28 +17,16 @@ class ScreenDetailPresenter(
     private val screenRepository: ScreenRepository,
     private val reservationRepository: ReservationRepository,
     private val screenTimePolicy: ScreenTimePolicy = WeeklyScreenTimePolicy(),
+    screenId: Int,
+    private val theaterId: Int,
 ) : ScreenDetailContract.Presenter {
-    private var screenId: Int = -1
-    private var theaterId: Int = -1
-
-    private var datePosition: Int = 0
-    private var timePosition: Int = 0
-
+    private val loadedScreen: Screen = loadedScreen(screenId)
+    private val dateRange = loadedScreen.dateRange
     private var ticket: Ticket = Ticket(MIN_TICKET_COUNT)
 
-    private lateinit var loadedScreen: Screen
-    private lateinit var dateRange: DateRange
+    private var datePosition: Int = 0
 
-    override fun saveId(
-        screenId: Int,
-        theaterId: Int,
-    ) {
-        this.screenId = screenId
-        this.theaterId = theaterId
-
-        loadedScreen = screen(screenId)
-        dateRange = loadedScreen.dateRange
-    }
+    private var timePosition: Int = 0
 
     override fun loadScreen() {
         try {
@@ -69,7 +56,7 @@ class ScreenDetailPresenter(
         ticket = Ticket(count)
     }
 
-    private fun screen(id: Int): Screen {
+    private fun loadedScreen(id: Int): Screen {
         screenRepository.findById(id = id).onSuccess { screen ->
             return screen
         }.onFailure { e ->

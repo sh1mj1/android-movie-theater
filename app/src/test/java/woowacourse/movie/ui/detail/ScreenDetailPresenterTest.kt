@@ -20,13 +20,6 @@ class ScreenDetailPresenterTest {
     @BeforeEach
     fun setUp() {
         mockView = mockk<ScreenDetailContract.View>(relaxed = true)
-        presenter =
-            ScreenDetailPresenter(
-                view = mockView,
-                movieRepository = FakeMovieRepository(),
-                screenRepository = FakeScreenRepository(),
-                reservationRepository = FakeReservationRepository(),
-            )
     }
 
     private val fakeScreenDetailUI =
@@ -44,8 +37,10 @@ class ScreenDetailPresenterTest {
 
     @Test
     fun `영화 정보를 표시`() {
+        // given
+        presenter = testScreenDetailPresenterFixture(screenId = 1, theaterId = 1)
+
         // when
-        presenter.saveId(screenId = 1, theaterId = 1)
         presenter.loadScreen()
 
         // then
@@ -55,6 +50,9 @@ class ScreenDetailPresenterTest {
 
     @Test
     fun `첫 화면에서 티켓의 개수는 1이다`() {
+        // given
+        presenter = testScreenDetailPresenterFixture()
+
         // when
         presenter.loadTicket()
 
@@ -64,6 +62,9 @@ class ScreenDetailPresenterTest {
 
     @Test
     fun `처음 화면에서 + 버튼을 누르면 티켓의 개수는 2이다`() {
+        // given
+        presenter = testScreenDetailPresenterFixture()
+
         // when
         presenter.plusTicket()
 
@@ -73,6 +74,9 @@ class ScreenDetailPresenterTest {
 
     @Test
     fun `처음 화면에서 - 버튼을 누르면 티켓의 개수는 1이다`() {
+        // given
+        presenter = testScreenDetailPresenterFixture()
+
         // when
         presenter.minusTicket()
 
@@ -82,6 +86,9 @@ class ScreenDetailPresenterTest {
 
     @Test
     fun `티켓 개수가 10인 상태에서 + 버튼을 누르면 티켓의 개수는 늘어나지 않는다`() {
+        // given
+        presenter = testScreenDetailPresenterFixture()
+
         repeat(9) {
             presenter.plusTicket()
         }
@@ -94,11 +101,27 @@ class ScreenDetailPresenterTest {
 
     @Test
     fun `reserve with date, time and ticket count`() {
+        // givne
+        presenter = testScreenDetailPresenterFixture(screenId = 1, theaterId = 1)
+
         // when
-        presenter.saveId(1, 1)
         presenter.reserve()
 
         // then
         verify(exactly = 1) { mockView.navigateToSeatsReservation(2, any()) }
+    }
+
+    private fun testScreenDetailPresenterFixture(
+        screenId: Int = 1,
+        theaterId: Int = 1,
+    ): ScreenDetailPresenter {
+        return ScreenDetailPresenter(
+            view = mockView,
+            movieRepository = FakeMovieRepository(),
+            screenRepository = FakeScreenRepository(),
+            reservationRepository = FakeReservationRepository(),
+            screenId = screenId,
+            theaterId = theaterId,
+        )
     }
 }

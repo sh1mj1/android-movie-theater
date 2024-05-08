@@ -24,15 +24,7 @@ import woowacourse.movie.ui.detail.view.TicketView
 import woowacourse.movie.ui.seat.SeatReservationActivity
 
 class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
-    private val presenter: ScreenDetailContract.Presenter by lazy {
-        ScreenDetailPresenter(
-            this,
-            DummyMovies(),
-            DummyScreens(),
-            DummyReservation,
-            WeeklyScreenTimePolicy(),
-        )
-    }
+    private lateinit var presenter: ScreenDetailContract.Presenter
 
     private val screenDetailView: ScreenDetailInformationView by lazy { findViewById(R.id.screen_detail_screen_view) }
     private val ticketView: TicketView by lazy { findViewById(R.id.screen_detail_ticket_view) }
@@ -41,15 +33,30 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_screen_detail)
+
+        initPresenter()
         initView()
+    }
+
+    private fun initPresenter() {
+        val screenId = intent.getIntExtra(PUT_EXTRA_KEY_ID, DEFAULT_SCREEN_ID)
+        val theaterId = intent.getIntExtra(PUT_EXTRA_THEATER_ID_KEY, DEFAULT_THEATER_ID)
+        presenter =
+            ScreenDetailPresenter(
+                this,
+                DummyMovies(),
+                DummyScreens(),
+                DummyReservation,
+                WeeklyScreenTimePolicy(),
+                screenId,
+                theaterId,
+            )
     }
 
     private fun initView() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val screenId = intent.getIntExtra(PUT_EXTRA_KEY_ID, DEFAULT_SCREEN_ID)
-        val theaterId = intent.getIntExtra(PUT_EXTRA_THEATER_ID_KEY, DEFAULT_THEATER_ID)
+
         with(presenter) {
-            saveId(screenId, theaterId)
             loadScreen()
             loadTicket()
         }
