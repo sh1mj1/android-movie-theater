@@ -13,7 +13,7 @@ import woowacourse.movie.domain.repository.DummyTheaters
 import woowacourse.movie.ui.detail.ScreenDetailActivity
 import woowacourse.movie.ui.home.adapter.TheaterAdapter
 
-class TheaterBottomSheet : BottomSheetDialogFragment(), TheatersScreeningMovieContract.View {
+class TheaterScreeningMovieBottomSheet : BottomSheetDialogFragment(), TheatersScreeningMovieContract.View {
     private var _binding: BottomSheetTheaterBinding? = null
     private val binding get() = _binding!!
 
@@ -60,7 +60,7 @@ class TheaterBottomSheet : BottomSheetDialogFragment(), TheatersScreeningMovieCo
         theaterAdapter.submitList(theaters.theaters)
     }
 
-    override fun navigateToScreenDetail(
+    override fun showScreenDetail(
         screenId: Int,
         theaterId: Int,
     ) {
@@ -75,8 +75,8 @@ class TheaterBottomSheet : BottomSheetDialogFragment(), TheatersScreeningMovieCo
     companion object {
         private const val ARGUMENT_SCREEN_ID = "screenId"
 
-        fun newInstance(screenId: Int): TheaterBottomSheet {
-            val fragment = TheaterBottomSheet()
+        fun newInstance(screenId: Int): TheaterScreeningMovieBottomSheet {
+            val fragment = TheaterScreeningMovieBottomSheet()
             val args = Bundle()
             args.putInt(ARGUMENT_SCREEN_ID, screenId)
             fragment.arguments = args

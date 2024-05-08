@@ -58,8 +58,8 @@ class HomeFragment : Fragment(), HomeContract.View {
     }
 
     override fun showTheatersScreeningMovie(screen: Screen) {
-        val theaterBottomSheet = TheaterBottomSheet.newInstance(screen.id)
-        theaterBottomSheet.show(childFragmentManager, "TheaterBottomSheet")
+        val theaterScreeningMovieBottomSheet = TheaterScreeningMovieBottomSheet.newInstance(screen.id)
+        theaterScreeningMovieBottomSheet.show(childFragmentManager, "TheaterBottomSheet")
     }
 
     override fun onDestroyView() {
