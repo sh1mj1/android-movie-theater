@@ -9,8 +9,8 @@
         <import type="woowacourse.movie.ui.DateRangeUi" />
 
         <variable
-            name="screenAd"
-            type="woowacourse.movie.domain.model.ScreenAd.ScreenPreviewUi" />
+            name="screenPreviewUi"
+            type="woowacourse.movie.ui.ScreenAd.ScreenPreviewUi" />
 
     </data>
 
@@ -30,7 +30,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            image:imageSource="@{screenAd.moviePreviewUI.image}"
+            image:imageSource="@{screenPreviewUi.moviePreviewUI.image}"
             tools:src="@drawable/img_poster" />
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_marginEnd="12dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{screenAd.moviePreviewUI.title}"
+            android:text="@{screenPreviewUi.moviePreviewUI.title}"
             android:textColor="@color/black"
             android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +65,7 @@
             android:id="@+id/tv_screen_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{DateRangeUi.dateRangeFormat(screenAd.dateRange)}"
+            android:text="@{DateRangeUi.dateRangeFormat(screenPreviewUi.dateRange)}"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_screen_date_guide"
             app:layout_constraintStart_toEndOf="@+id/tv_screen_date_guide"
@@ -89,7 +89,7 @@
             android:id="@+id/tv_screen_running_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/running_time(screenAd.moviePreviewUI.runningTime)}"
+            android:text="@{@string/running_time(screenPreviewUi.moviePreviewUI.runningTime)}"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_screen_running_time_guide"
             app:layout_constraintStart_toEndOf="@+id/tv_screen_running_time_guide"

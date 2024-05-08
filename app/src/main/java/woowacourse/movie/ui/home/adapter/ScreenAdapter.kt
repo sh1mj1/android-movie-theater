@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import woowacourse.movie.databinding.HolderAdvertisementBinding
 import woowacourse.movie.databinding.HolderScreenBinding
-import woowacourse.movie.domain.model.ScreenAd
 import woowacourse.movie.domain.model.ScreenType
+import woowacourse.movie.ui.ScreenAd
 
 class ScreenAdapter(
     private val onScreenClick: (id: Int) -> Unit,

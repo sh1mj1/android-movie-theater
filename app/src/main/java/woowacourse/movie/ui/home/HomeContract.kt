@@ -1,7 +1,7 @@
 package woowacourse.movie.ui.home
 
 import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.model.ScreenAd
+import woowacourse.movie.ui.ScreenAd
 
 interface HomeContract {
     interface View {

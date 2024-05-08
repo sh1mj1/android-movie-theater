@@ -1,7 +1,7 @@
 package woowacourse.movie.ui.home.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import woowacourse.movie.domain.model.ScreenAd
+import woowacourse.movie.ui.ScreenAd
 
 class ScreenPreviewUiDiffUtil : DiffUtil.ItemCallback<ScreenAd>() {
     override fun areItemsTheSame(

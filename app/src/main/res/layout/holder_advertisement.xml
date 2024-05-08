@@ -8,7 +8,7 @@
 
         <variable
             name="advertisement"
-            type="woowacourse.movie.domain.model.ScreenAd.Advertisement" />
+            type="woowacourse.movie.ui.ScreenAd.Advertisement" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

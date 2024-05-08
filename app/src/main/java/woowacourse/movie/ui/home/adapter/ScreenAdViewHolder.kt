@@ -4,7 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.databinding.HolderAdvertisementBinding
 import woowacourse.movie.databinding.HolderScreenBinding
-import woowacourse.movie.domain.model.ScreenAd
+import woowacourse.movie.ui.ScreenAd
 
 sealed class ScreenAdViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     abstract fun bind(screenAd: ScreenAd)
@@ -16,7 +16,7 @@ sealed class ScreenAdViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         override fun bind(screenAd: ScreenAd) {
             if (screenAd is ScreenAd.ScreenPreviewUi) {
                 binding.apply {
-                    this.screenAd = screenAd
+                    this.screenPreviewUi = screenAd
                     btnReserveNow.setOnClickListener { onReserveClick(screenAd.id) }
                 }
             }

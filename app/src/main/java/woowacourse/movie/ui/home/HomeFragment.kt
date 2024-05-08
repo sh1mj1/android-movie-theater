@@ -8,9 +8,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import woowacourse.movie.databinding.FragmentHomeBinding
 import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.model.ScreenAd
 import woowacourse.movie.domain.repository.DummyMovies
 import woowacourse.movie.domain.repository.DummyScreens
+import woowacourse.movie.ui.ScreenAd
 import woowacourse.movie.ui.home.adapter.ScreenAdapter
 
 class HomeFragment : Fragment(), HomeContract.View {

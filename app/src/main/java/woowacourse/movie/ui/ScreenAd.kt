@@ -1,7 +1,9 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.ui
 
-import woowacourse.movie.ui.MoviePreviewUI
-import woowacourse.movie.ui.toPreviewUI
+import woowacourse.movie.domain.model.DateRange
+import woowacourse.movie.domain.model.DrawableImage
+import woowacourse.movie.domain.model.Image
+import woowacourse.movie.domain.model.Screen
 
 sealed interface ScreenAd {
     data class ScreenPreviewUi(
