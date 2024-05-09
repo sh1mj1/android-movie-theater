@@ -20,8 +20,8 @@ fun setImageResource(
     imageView: ImageView,
     image: Image<Any>,
 ) {
-    when {
-        image.imageSource is Int -> setImageResource(imageView, image.imageSource as Int)
-        // ...
+    when (image.imageSource) {
+        is Int -> setImageResource(imageView, image.imageSource as Int)
+        is String -> { /* Load image from URL or something */ }
     }
 }
