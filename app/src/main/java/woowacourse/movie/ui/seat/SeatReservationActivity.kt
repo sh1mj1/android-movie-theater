@@ -71,17 +71,24 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
         val seatsGridLayout = binding.rvSeatReservationSeats
         seatsGridLayout.layoutManager = GridLayoutManager(this, seats.maxColumn())
 
-        seatsAdapter = SeatsAdapter(
-            object : OnSeatSelectedListener {
-                override fun onSeatSelected(seat: Seat, seatView: View) {
-                    presenter.selectSeat(seat.position, seatView)
-                }
+        seatsAdapter =
+            SeatsAdapter(
+                object : OnSeatSelectedListener {
+                    override fun onSeatSelected(
+                        seat: Seat,
+                        seatView: View,
+                    ) {
+                        presenter.selectSeat(seat.position, seatView)
+                    }
 
-                override fun onSeatDeselected(seat: Seat, seatView: View) {
-                    presenter.deselectSeat(seat.position, seatView)
-                }
-            }
-        )
+                    override fun onSeatDeselected(
+                        seat: Seat,
+                        seatView: View,
+                    ) {
+                        presenter.deselectSeat(seat.position, seatView)
+                    }
+                },
+            )
 
         seatsGridLayout.adapter = seatsAdapter
 

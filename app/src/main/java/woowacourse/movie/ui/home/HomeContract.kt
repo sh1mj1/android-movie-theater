@@ -8,6 +8,8 @@ interface HomeContract {
         fun showScreens(screens: List<ScreenAd>)
 
         fun showTheatersScreeningMovie(screen: Screen)
+
+        fun showTheatersFail(throwable: Throwable)
     }
 
     interface Presenter {
