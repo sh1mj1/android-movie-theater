@@ -11,9 +11,9 @@ interface DateTimeSpinnerView {
         onTimeSelectedListener: OnItemSelectedListener,
     )
 
-    fun restoreDatePosition(position: Int)
+    fun showDate(position: Int)
 
-    fun restoreTimePosition(position: Int)
+    fun showTime(position: Int)
 
     fun selectedDatePosition(): Int
 

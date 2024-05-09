@@ -33,7 +33,6 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_screen_detail)
-
         initPresenter()
         initView()
     }
@@ -100,12 +99,14 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
             presenter.saveTicket(count)
 
             val datePosition = bundle.getInt(PUT_DATE_POSITION_KEY)
-            dateTimeSpinnerView.restoreDatePosition(datePosition)
+            dateTimeSpinnerView.showDate(datePosition)
             presenter.saveDatePosition(datePosition)
+            showDate(datePosition)
 
             val timePosition = bundle.getInt(PUT_TIME_POSITION_KEY)
-            dateTimeSpinnerView.restoreTimePosition(timePosition)
+            dateTimeSpinnerView.showTime(timePosition)
             presenter.saveTimePosition(timePosition)
+            showTime(timePosition)
         }
     }
 
@@ -124,6 +125,14 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         onTimeSelectedListener: OnItemSelectedListener,
     ) {
         dateTimeSpinnerView.show(dateRange, screenTimePolicy, onDateSelectedListener, onTimeSelectedListener)
+    }
+
+    override fun showDate(datePosition: Int) {
+        presenter.saveDatePosition(datePosition)
+    }
+
+    override fun showTime(timePosition: Int) {
+        presenter.saveTimePosition(timePosition)
     }
 
     override fun showSeatsReservation(

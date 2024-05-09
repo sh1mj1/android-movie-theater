@@ -18,6 +18,10 @@ interface ScreenDetailContract {
             onTimeSelectedListener: OnItemSelectedListener,
         )
 
+        fun showDate(datePosition: Int)
+
+        fun showTime(timePosition: Int)
+
         fun showSeatsReservation(
             timeReservationId: Int,
             theaterId: Int,

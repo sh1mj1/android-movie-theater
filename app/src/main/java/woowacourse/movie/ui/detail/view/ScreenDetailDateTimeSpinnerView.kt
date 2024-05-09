@@ -35,23 +35,25 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
         screenTimePolicy: ScreenTimePolicy,
         dateRange: DateRange,
         onTimeSelectedListener: OnItemSelectedListener,
-    ) = TimeAdapter(context, screenTimePolicy, dateRange.start, onTimeSelectedListener = { position ->
-        onTimeSelectedListener.onItemSelected(position)
-    })
+    ): TimeAdapter {
+        return TimeAdapter(context, screenTimePolicy, dateRange.start, onTimeSelectedListener = { position ->
+            onTimeSelectedListener.onItemSelected(position)
+        })
+    }
 
     private fun initDateAdapter(
         dateRange: DateRange,
         screenTimePolicy: ScreenTimePolicy,
         timeAdapter: TimeAdapter,
         onDateSelectedListener: OnItemSelectedListener,
-    ) = DateAdapter(context, dateRange) { position ->
-        val times = screenTimePolicy.screeningTimes(dateRange.allDates()[position]).toList()
-        Log.d(TAG, "initDateAdapter: times: $times")
+    ): DateAdapter =
+        DateAdapter(context, dateRange) { position ->
+            val times = screenTimePolicy.screeningTimes(dateRange.allDates()[position]).toList()
 
-        timeAdapter.clear()
-        timeAdapter.addAll(times)
-        onDateSelectedListener.onItemSelected(position)
-    }
+            timeAdapter.clear()
+            timeAdapter.addAll(times)
+            onDateSelectedListener.onItemSelected(position)
+        }
 
     private fun bindAdapters(
         timeAdapter: TimeAdapter,
@@ -64,12 +66,24 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
         binding.spnDate.onItemSelectedListener = dateAdapter
     }
 
-    override fun restoreDatePosition(position: Int) {
-        binding.spnDate.setSelection(position)
+    override fun showDate(position: Int) {
+        Log.d(TAG, "showDate: position: $position")
+
+//        이 코드는 안 됨.
+//        binding.spnDate.setSelection(position)
+
+//        이 코드는 됨
+        binding.spnDate.post { binding.spnDate.setSelection(position) }
     }
 
-    override fun restoreTimePosition(position: Int) {
-        binding.spnTime.setSelection(position)
+    override fun showTime(position: Int) {
+        Log.d(TAG, "showTime: position: $position")
+
+//        이 코드는 안됨.
+//        binding.spnTime.setSelection(position)
+
+        // 이 코드는 됨.
+        binding.spnDate.post { binding.spnTime.setSelection(position) }
     }
 
     override fun selectedDatePosition(): Int {
