@@ -64,6 +64,10 @@ class SeatReservationPresenter(
         }
     }
 
+    override fun attemptReserve() {
+        view.checkReservationConfirm()
+    }
+
     override fun reserve() {
         val screenId = timeReservation.screen.id
 

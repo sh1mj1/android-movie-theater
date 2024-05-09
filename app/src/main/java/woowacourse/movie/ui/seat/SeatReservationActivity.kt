@@ -41,9 +41,9 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
         with(presenter) {
             loadAllSeats()
             loadTimeReservation()
-            onReserveButtonClickedListener = OnReserveClickedListener { reserve() }
-            binding.onReserveClickedListener = onReserveButtonClickedListener
         }
+        onReserveButtonClickedListener = OnReserveClickedListener { presenter.attemptReserve() }
+        binding.onReserveClickedListener = onReserveButtonClickedListener
     }
 
     private fun initPresenter() {
@@ -117,16 +117,13 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
         }
     }
 
-    override fun showCompleteReservation(
-        reservationId: Int,
-        theaterId: Int,
-    ) {
+    override fun checkReservationConfirm() {
         val alertDialog =
             AlertDialog.Builder(this)
                 .setTitle(R.string.check_reservation_title)
                 .setMessage(R.string.check_reservation_content)
                 .setPositiveButton(R.string.check_reservation_complete) { _, _ ->
-                    ReservationCompleteActivity.startActivity(this, reservationId, theaterId)
+                    presenter.reserve()
                 }
                 .setNegativeButton(R.string.check_reservation_cancel) { dialog, _ ->
                     dialog.dismiss()
@@ -135,6 +132,13 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
                 .create()
 
         alertDialog.show()
+    }
+
+    override fun showCompleteReservation(
+        reservationId: Int,
+        theaterId: Int,
+    ) {
+        ReservationCompleteActivity.startActivity(this, reservationId, theaterId)
     }
 
     override fun showSeatReservationFail(throwable: Throwable) {

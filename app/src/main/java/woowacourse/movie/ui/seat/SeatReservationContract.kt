@@ -18,6 +18,8 @@ interface SeatReservationContract {
 
         fun activateReservation(activated: Boolean)
 
+        fun checkReservationConfirm()
+
         fun showCompleteReservation(
             reservationId: Int,
             theaterId: Int,
@@ -44,6 +46,8 @@ interface SeatReservationContract {
         )
 
         fun calculateTotalPrice()
+
+        fun attemptReserve()
 
         fun reserve()
     }
