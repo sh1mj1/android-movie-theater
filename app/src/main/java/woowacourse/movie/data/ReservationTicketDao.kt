@@ -11,4 +11,7 @@ interface ReservationTicketDao {
 
     @Query("SELECT * from reservations WHERE id = :id")
     fun findReservationById(id: Int): ReservationTicket
+
+    @Query("SELECT * from reservations")
+    fun findAll(): List<ReservationTicket>
 }
