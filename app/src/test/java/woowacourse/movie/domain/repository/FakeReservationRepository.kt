@@ -49,9 +49,7 @@ class FakeReservationRepository : ReservationRepository {
             id
         }
 
-    override fun loadAllReservationHistory(): Result<List<Reservation>> {
-        TODO("Not yet implemented")
-    }
+    override fun loadAllReservationHistory(): Result<List<Reservation>> = runCatching { reservations }
 
     override fun loadTimeReservation(timeReservationId: Int): TimeReservation =
         timeReservations.find { it.id == timeReservationId }
