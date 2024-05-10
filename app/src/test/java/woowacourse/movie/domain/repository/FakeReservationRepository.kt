@@ -4,6 +4,7 @@ import woowacourse.movie.domain.model.DateTime
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seats
+import woowacourse.movie.domain.model.Theater
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.model.TimeReservation
 
@@ -18,13 +19,17 @@ class FakeReservationRepository : ReservationRepository {
             TimeReservation.NULL,
         )
 
-    override fun save(
+    override fun saveReservation(
         screen: Screen,
         seats: Seats,
         dateTime: DateTime,
-    ): Result<Int> {
-        TODO("Not yet implemented")
-    }
+        theater: Theater,
+    ): Result<Long> =
+        runCatching {
+            val id = reservations.size + 1
+            reservations.add(Reservation(id, screen, Ticket(seats.count()), seats, dateTime))
+            id.toLong()
+        }
 
     override fun saveTimeReservation(
         screen: Screen,

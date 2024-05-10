@@ -8,4 +8,8 @@ data class Theater(
     fun hasScreen(screen: Screen): Boolean = screens.contains(screen)
 
     fun allScreeningTimeCount(screen: Screen): Int = screen.allScreeningTime(WeeklyScreenTimePolicy()).count()
+
+    companion object {
+        val NULL = Theater(0, "", emptyList())
+    }
 }

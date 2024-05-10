@@ -4,14 +4,16 @@ import woowacourse.movie.domain.model.DateTime
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seats
+import woowacourse.movie.domain.model.Theater
 import woowacourse.movie.domain.model.TimeReservation
 
 interface ReservationRepository {
-    fun save(
+    fun saveReservation(
         screen: Screen,
         seats: Seats,
         dateTime: DateTime,
-    ): Result<Int>
+        theater: Theater,
+    ): Result<Long>
 
     fun saveTimeReservation(
         screen: Screen,

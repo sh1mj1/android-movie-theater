@@ -1,5 +1,8 @@
 package woowacourse.movie.domain.repository
 
+import woowacourse.movie.data.ReservationTicket
+import woowacourse.movie.data.ReservationTicketDao
+import woowacourse.movie.data.toReservation
 import woowacourse.movie.domain.model.DateTime
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
@@ -8,22 +11,28 @@ import woowacourse.movie.domain.model.Theater
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.model.TimeReservation
 
-object DummyReservation : ReservationRepository {
-    private val timeReservation = mutableListOf<TimeReservation>()
-
-    private val reservations = mutableListOf<Reservation>()
-
+class OfflineReservationRepository(private val reservationTicketDao: ReservationTicketDao) : ReservationRepository {
     override fun saveReservation(
         screen: Screen,
         seats: Seats,
         dateTime: DateTime,
         theater: Theater,
-    ): Result<Long> =
-        runCatching {
-            val id = reservations.size + 1
-            reservations.add(Reservation(id, screen, Ticket(seats.count()), seats, dateTime))
-            id.toLong()
+    ): Result<Long> {
+        return runCatching {
+            val id =
+                reservationTicketDao.insert(
+                    reservationTicket =
+                        ReservationTicket(
+                            screen = screen,
+                            date = dateTime.date,
+                            time = dateTime.time,
+                            seats = seats,
+                            theaterName = theater.name,
+                        ),
+                )
+            id
         }
+    }
 
     override fun saveTimeReservation(
         screen: Screen,
@@ -41,10 +50,12 @@ object DummyReservation : ReservationRepository {
             it.id == timeReservationId
         } ?: throw NoSuchElementException("TimeReservation not found with timeReservationId: $timeReservationId.")
 
-    override fun findById(id: Int): Result<Reservation> {
-        return runCatching {
-            val reservation = reservations.find { it.id == id }
-            reservation ?: throw IllegalArgumentException("예약 정보를 찾을 수 없습니다.")
+    override fun findById(id: Int): Result<Reservation> =
+        runCatching {
+            reservationTicketDao.findReservationById(id).toReservation()
         }
+
+    companion object {
+        private val timeReservation = mutableListOf<TimeReservation>()
     }
 }
