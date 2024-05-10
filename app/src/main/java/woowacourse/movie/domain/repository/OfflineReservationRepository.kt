@@ -2,6 +2,7 @@ package woowacourse.movie.domain.repository
 
 import woowacourse.movie.data.ReservationTicket
 import woowacourse.movie.data.ReservationTicketDao
+import woowacourse.movie.data.ReservationTicketRoomDao
 import woowacourse.movie.data.toReservation
 import woowacourse.movie.domain.model.DateTime
 import woowacourse.movie.domain.model.Reservation
@@ -45,6 +46,11 @@ class OfflineReservationRepository(private val reservationTicketDao: Reservation
             id
         }
 
+    override fun loadAllReservationHistory(): Result<List<Reservation>> =
+        runCatching {
+            reservationTicketDao.findAll().map { it.toReservation() }
+        }
+
     override fun loadTimeReservation(timeReservationId: Int): TimeReservation =
         timeReservation.find {
             it.id == timeReservationId
@@ -56,6 +62,7 @@ class OfflineReservationRepository(private val reservationTicketDao: Reservation
         }
 
     companion object {
+        const val TAG = "OfflineReservationRepository"
         private val timeReservation = mutableListOf<TimeReservation>()
     }
 }

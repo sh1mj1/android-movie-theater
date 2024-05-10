@@ -9,7 +9,7 @@ import androidx.room.TypeConverters
 @Database(entities = [ReservationTicket::class], version = 1)
 @TypeConverters(ReservationTicketConverters::class)
 abstract class ReservationTicketDatabase : RoomDatabase() {
-    abstract fun reservationDao(): ReservationTicketDao
+    abstract fun reservationDao(): ReservationTicketRoomDao
 
     companion object {
         @Volatile

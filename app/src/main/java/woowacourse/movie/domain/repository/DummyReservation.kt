@@ -36,6 +36,10 @@ object DummyReservation : ReservationRepository {
             id
         }
 
+    override fun loadAllReservationHistory(): Result<List<Reservation>> {
+        TODO("Not yet implemented")
+    }
+
     override fun loadTimeReservation(timeReservationId: Int): TimeReservation =
         timeReservation.find {
             it.id == timeReservationId

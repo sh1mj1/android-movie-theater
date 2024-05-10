@@ -49,6 +49,10 @@ class FakeReservationRepository : ReservationRepository {
             id
         }
 
+    override fun loadAllReservationHistory(): Result<List<Reservation>> {
+        TODO("Not yet implemented")
+    }
+
     override fun loadTimeReservation(timeReservationId: Int): TimeReservation =
         timeReservations.find { it.id == timeReservationId }
             ?: throw NoSuchElementException("TimeReservation not found with timeReservationId: $timeReservationId.")

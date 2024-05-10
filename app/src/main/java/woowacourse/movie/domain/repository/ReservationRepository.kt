@@ -21,6 +21,8 @@ interface ReservationRepository {
         dateTime: DateTime,
     ): Result<Int>
 
+    fun loadAllReservationHistory(): Result<List<Reservation>>
+
     fun loadTimeReservation(timeReservationId: Int): TimeReservation
 
     fun findById(id: Int): Result<Reservation>
