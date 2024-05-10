@@ -37,7 +37,7 @@ class ReservationTicketDatabaseTest {
     }
 
     @Test
-    fun testInsertAndRetrieve() {
+    fun testInsert() {
         val movie = Movie(1, "title", 120, "description")
         val screen = Screen(1, movie, DateRange(LocalDate.of(2021, 1, 1), LocalDate.of(2021, 12, 31)))
         val seats =
@@ -57,6 +57,29 @@ class ReservationTicketDatabaseTest {
         dao.insert(reservationTicket)
 
         assertEquals(reservationTicket, dao.findReservationById(1))
+    }
+
+    @Test
+    fun testInsertAndRetrieve() {
+        val movie = Movie(1, "title", 120, "description")
+        val screen = Screen(1, movie, DateRange(LocalDate.of(2021, 1, 1), LocalDate.of(2021, 12, 31)))
+        val seats =
+            Seats(
+                Seat(Position(1, 1), Grade.A),
+            )
+        val reservationTicket =
+            ReservationTicket(
+                id = 1,
+                screen = screen,
+                date = LocalDate.of(2024, 3, 2),
+                time = LocalTime.of(12, 30),
+                seats = seats,
+                theaterName = "theater1",
+            )
+
+        val insertedReservationTicketId = dao.insert(reservationTicket)
+
+        assertEquals(1, insertedReservationTicketId)
     }
 
     @Test

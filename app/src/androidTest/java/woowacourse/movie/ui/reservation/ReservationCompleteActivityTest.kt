@@ -18,6 +18,7 @@ import woowacourse.movie.domain.model.Position
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
+import woowacourse.movie.domain.model.Theater
 import woowacourse.movie.domain.repository.DummyReservation
 import java.time.LocalDate
 import java.time.LocalTime
@@ -63,14 +64,15 @@ class ReservationCompleteActivityTest {
         onView(withId(R.id.tv_reservation_time)).check(matches(withText("10:00")))
     }
 
-    private fun testFixtureReservationId(): Int {
-        return DummyReservation.save(
+    private fun testFixtureReservationId(): Long {
+        return DummyReservation.saveReservation(
             Screen.NULL,
             Seats(
                 Seat(Position(0, 0), Grade.S),
                 Seat(Position(1, 1), Grade.A),
             ),
             DateTime(LocalDate.of(2024, 3, 1), LocalTime.of(10, 0)),
+            Theater.NULL,
         ).getOrThrow()
     }
 }

@@ -7,7 +7,7 @@ import androidx.room.Query
 @Dao
 interface ReservationTicketDao {
     @Insert
-    fun insert(reservationTicket: ReservationTicket)
+    fun insert(reservationTicket: ReservationTicket): Long
 
     @Query("SELECT * from reservations WHERE id = :id")
     fun findReservationById(id: Int): ReservationTicket
