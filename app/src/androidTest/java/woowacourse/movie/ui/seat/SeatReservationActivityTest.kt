@@ -13,9 +13,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import woowacourse.movie.data.ReservationTicketDatabase
 import woowacourse.movie.domain.model.DateTime
 import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.repository.DummyReservation
+import woowacourse.movie.domain.repository.OfflineReservationRepository
 
 @RunWith(AndroidJUnit4::class)
 class SeatReservationActivityTest {
@@ -24,7 +25,7 @@ class SeatReservationActivityTest {
     @Before
     fun setup() {
         // 상영작, 예매 개수, 날짜를 미리 예약해둔다.
-        DummyReservation.saveTimeReservation(
+        OfflineReservationRepository(reservationTicketDao = dao).saveTimeReservation(
             screen = Screen.NULL,
             count = 2,
             dateTime = DateTime.NULL,
@@ -54,5 +55,10 @@ class SeatReservationActivityTest {
         a1.check((matches(isSelected())))
         b2.check((matches(isSelected())))
         c3.check((matches(isNotSelected())))
+    }
+
+    companion object {
+        private val db = ReservationTicketDatabase.getDatabase(ApplicationProvider.getApplicationContext())
+        private val dao = db.reservationDao()
     }
 }
