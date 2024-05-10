@@ -8,13 +8,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
+import woowacourse.movie.data.ReservationTicketDatabase
 import woowacourse.movie.domain.model.DateRange
 import woowacourse.movie.domain.model.ScreenTimePolicy
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.model.WeeklyScreenTimePolicy
 import woowacourse.movie.domain.repository.DummyMovies
-import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.DummyScreens
+import woowacourse.movie.domain.repository.OfflineReservationRepository
 import woowacourse.movie.ui.ScreenDetailUi
 import woowacourse.movie.ui.detail.view.DateTimeSpinnerView
 import woowacourse.movie.ui.detail.view.OnItemSelectedListener
@@ -45,7 +46,9 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
                 this,
                 DummyMovies(),
                 DummyScreens(),
-                DummyReservation,
+                OfflineReservationRepository(
+                    ReservationTicketDatabase.getDatabase(applicationContext).reservationDao(),
+                ),
                 WeeklyScreenTimePolicy(),
                 screenId,
                 theaterId,

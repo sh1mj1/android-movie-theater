@@ -7,10 +7,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import woowacourse.movie.R
+import woowacourse.movie.data.ReservationTicketDatabase
 import woowacourse.movie.databinding.ActivityReservationCompleteBinding
 import woowacourse.movie.domain.model.Reservation
-import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.DummyTheaters
+import woowacourse.movie.domain.repository.OfflineReservationRepository
 
 class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.View {
     private lateinit var presenter: ReservationContract.Presenter
@@ -28,7 +29,14 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.Vie
         val reservationId = intent.getIntExtra(PUT_EXTRA_KEY_RESERVATION_ID, DEFAULT_RESERVATION_ID)
         val theaterId =
             intent.getIntExtra(PUT_EXTRA_THEATER_ID_KEY, DEFAULT_THEATER_ID)
-        presenter = ReservationPresenter(this, DummyReservation, DummyTheaters(), theaterId, reservationId)
+        presenter =
+            ReservationPresenter(
+                this,
+                OfflineReservationRepository(
+                    ReservationTicketDatabase.getDatabase(applicationContext).reservationDao(),
+                ),
+                DummyTheaters(), theaterId, reservationId,
+            )
     }
 
     private fun initView() {
