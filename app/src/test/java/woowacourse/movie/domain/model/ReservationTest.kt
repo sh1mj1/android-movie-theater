@@ -16,6 +16,7 @@ class ReservationTest {
                     Seat(Position(0, 0), Grade.S),
                     Seat(Position(0, 1), Grade.A),
                 ),
+                DateTime.NULL,
             )
         }
     }
@@ -31,6 +32,7 @@ class ReservationTest {
                     Seat(Position(0, 0), Grade.S),
                     Seat(Position(0, 1), Grade.A),
                 ),
+                DateTime.NULL,
             )
         }
     }
