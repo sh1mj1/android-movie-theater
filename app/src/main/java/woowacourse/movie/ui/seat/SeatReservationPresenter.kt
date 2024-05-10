@@ -5,13 +5,17 @@ import woowacourse.movie.domain.model.Position
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.domain.model.TimeReservation
+import woowacourse.movie.domain.repository.DummyTheaters
 import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.domain.repository.ScreenRepository
+import woowacourse.movie.domain.repository.TheaterRepository
+import kotlin.concurrent.thread
 
 class SeatReservationPresenter(
     private val view: SeatReservationContract.View,
     private val screenRepository: ScreenRepository,
     private val reservationRepository: ReservationRepository,
+    private val theaterRepository: TheaterRepository = DummyTheaters(),
     private val theaterId: Int,
     timeReservationId: Int,
 ) : SeatReservationContract.Presenter {
@@ -70,15 +74,17 @@ class SeatReservationPresenter(
 
     override fun reserve() {
         val screenId = timeReservation.screen.id
-
-        reservationRepository.save(
-            loadedScreen(screenId),
-            selectedSeats,
-            timeReservation.dateTime,
-        ).onSuccess { reservationId ->
-            view.showCompleteReservation(reservationId, theaterId)
-        }.onFailure { e ->
-            view.showSeatReservationFail(e)
+        thread {
+            reservationRepository.saveReservation(
+                loadedScreen(screenId),
+                selectedSeats,
+                timeReservation.dateTime,
+                theaterRepository.findById(theaterId),
+            ).onSuccess { reservationId ->
+                view.showCompleteReservation(reservationId.toInt(), theaterId)
+            }.onFailure { e ->
+                view.showSeatReservationFail(e)
+            }
         }
     }
 

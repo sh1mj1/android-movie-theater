@@ -1,7 +1,10 @@
 package woowacourse.movie.ui.reservation
 
+import android.os.Handler
+import android.os.Looper
 import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.domain.repository.TheaterRepository
+import kotlin.concurrent.thread
 
 class ReservationPresenter(
     private val view: ReservationContract.View,
@@ -10,15 +13,22 @@ class ReservationPresenter(
     private val theaterId: Int,
     private val reservationId: Int,
 ) : ReservationContract.Presenter {
-    override fun loadReservation() {
-        reservationRepository.findById(reservationId)
-            .onSuccess {
-                val theaterName = theaterRepository.findById(theaterId).name
+    private val uiHandler = Handler(Looper.getMainLooper())
 
-                view.showReservation(it, theaterName)
-            }
-            .onFailure { e ->
-                view.showReservationFail(e)
-            }
+    override fun loadReservation() {
+        thread {
+            reservationRepository.findById(reservationId)
+                .onSuccess {
+                    val theaterName = theaterRepository.findById(theaterId).name
+                    uiHandler.post {
+                        view.showReservation(it, theaterName)
+                    }
+                }
+                .onFailure { e ->
+                    uiHandler.post {
+                        view.showReservationFail(e)
+                    }
+                }
+        }
     }
 }
