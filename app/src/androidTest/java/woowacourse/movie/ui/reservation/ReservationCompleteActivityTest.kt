@@ -23,6 +23,7 @@ import woowacourse.movie.domain.model.Position
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
+import woowacourse.movie.domain.model.Theater
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -97,6 +98,6 @@ private fun reservationTicketTestFixture(): ReservationTicket {
         date = LocalDate.of(2024, 3, 2),
         time = LocalTime.of(12, 30),
         seats = seats,
-        theaterName = "theater1",
+        theater = Theater(1, "theater1", emptyList()),
     )
 }

@@ -16,6 +16,7 @@ import woowacourse.movie.domain.model.Position
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
+import woowacourse.movie.domain.model.Theater
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -51,7 +52,7 @@ class ReservationTicketDatabaseTest {
                 date = LocalDate.of(2024, 3, 2),
                 time = LocalTime.of(12, 30),
                 seats = seats,
-                theaterName = "theater1",
+                theater = Theater(id = 1, name = "theater1", screens = emptyList()),
             )
 
         dao.insert(reservationTicket)
@@ -74,7 +75,7 @@ class ReservationTicketDatabaseTest {
                 date = LocalDate.of(2024, 3, 2),
                 time = LocalTime.of(12, 30),
                 seats = seats,
-                theaterName = "theater1",
+                theater = Theater(id = 1, name = "theater1", screens = emptyList()),
             )
 
         val insertedReservationTicketId = dao.insert(reservationTicket)
@@ -120,7 +121,7 @@ class ReservationTicketDatabaseTest {
                 date = LocalDate.of(2024, 3, 2),
                 time = LocalTime.of(12, 30),
                 seats = seats1,
-                theaterName = "theater1",
+                theater = Theater(id = 1, name = "theater1", screens = emptyList()),
             )
         val reservationTicket2 =
             ReservationTicket(
@@ -129,7 +130,7 @@ class ReservationTicketDatabaseTest {
                 date = LocalDate.of(2024, 3, 2),
                 time = LocalTime.of(12, 30),
                 seats = seats2,
-                theaterName = "theater2",
+                theater = Theater(id = 1, name = "theater1", screens = emptyList()),
             )
         val reservationTicket3 =
             ReservationTicket(
@@ -138,7 +139,7 @@ class ReservationTicketDatabaseTest {
                 date = LocalDate.of(2024, 3, 2),
                 time = LocalTime.of(12, 30),
                 seats = seats3,
-                theaterName = "theater3",
+                theater = Theater(id = 1, name = "theater1", screens = emptyList()),
             )
 
         dao.insert(reservationTicket1)

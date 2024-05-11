@@ -9,6 +9,7 @@ data class Reservation(
     val ticket: Ticket,
     val seats: Seats,
     val dateTime: DateTime,
+    val theater: Theater,
 ) {
     init {
         require(ticket.count == seats.count()) { "예약된 좌석 수와 티켓 수가 일치하지 않습니다." }
@@ -29,6 +30,7 @@ data class Reservation(
                         LocalDate.of(2021, 1, 1),
                         LocalTime.of(1, 1),
                     ),
+                theater = Theater.NULL,
             )
     }
 }

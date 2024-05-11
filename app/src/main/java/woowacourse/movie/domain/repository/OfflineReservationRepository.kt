@@ -27,7 +27,7 @@ class OfflineReservationRepository(private val reservationTicketDao: Reservation
                             date = dateTime.date,
                             time = dateTime.time,
                             seats = seats,
-                            theaterName = theater.name,
+                            theater = theater,
                         ),
                 )
             id

@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [ReservationTicket::class], version = 1)
+@Database(entities = [ReservationTicket::class], version = 3)
 @TypeConverters(ReservationTicketConverters::class)
 abstract class ReservationTicketDatabase : RoomDatabase() {
     abstract fun reservationDao(): ReservationTicketRoomDao

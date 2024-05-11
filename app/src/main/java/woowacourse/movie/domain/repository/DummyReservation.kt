@@ -22,7 +22,7 @@ object DummyReservation : ReservationRepository {
     ): Result<Long> =
         runCatching {
             val id = reservations.size + 1
-            reservations.add(Reservation(id, screen, Ticket(seats.count()), seats, dateTime))
+            reservations.add(Reservation(id, screen, Ticket(seats.count()), seats, dateTime, theater))
             id.toLong()
         }
 

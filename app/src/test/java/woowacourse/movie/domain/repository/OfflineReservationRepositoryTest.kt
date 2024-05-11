@@ -70,9 +70,9 @@ class OfflineReservationRepositoryTest {
         // then
         assertThat(result).isEqualTo(
             listOf(
-                ReservationTicket(1, Screen.NULL, DateTime.NULL.date, DateTime.NULL.time, seats1, Theater.NULL.name),
-                ReservationTicket(2, Screen.NULL, DateTime.NULL.date, DateTime.NULL.time, seats2, Theater.NULL.name),
-                ReservationTicket(3, Screen.NULL, DateTime.NULL.date, DateTime.NULL.time, seats3, Theater.NULL.name),
+                ReservationTicket(1, Screen.NULL, DateTime.NULL.date, DateTime.NULL.time, seats1, Theater.NULL),
+                ReservationTicket(2, Screen.NULL, DateTime.NULL.date, DateTime.NULL.time, seats2, Theater.NULL),
+                ReservationTicket(3, Screen.NULL, DateTime.NULL.date, DateTime.NULL.time, seats3, Theater.NULL),
             ),
         )
     }

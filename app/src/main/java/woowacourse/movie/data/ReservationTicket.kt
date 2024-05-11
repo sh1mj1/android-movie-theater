@@ -6,6 +6,7 @@ import woowacourse.movie.domain.model.DateTime
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seats
+import woowacourse.movie.domain.model.Theater
 import woowacourse.movie.domain.model.Ticket
 import java.time.LocalDate
 import java.time.LocalTime
@@ -18,7 +19,7 @@ data class ReservationTicket(
     val date: LocalDate,
     val time: LocalTime,
     val seats: Seats,
-    val theaterName: String,
+    val theater: Theater = Theater.NULL,
 ) {
     companion object {
         val NULL =
@@ -27,7 +28,7 @@ data class ReservationTicket(
                 date = LocalDate.MIN,
                 time = LocalTime.MIN,
                 seats = Seats(),
-                theaterName = "",
+                theater = Theater.NULL,
             )
     }
 }
@@ -39,5 +40,6 @@ fun ReservationTicket.toReservation(): Reservation {
         ticket = Ticket(seats.count()),
         seats = seats,
         dateTime = DateTime(date, time),
+        theater = Theater.NULL,
     )
 }

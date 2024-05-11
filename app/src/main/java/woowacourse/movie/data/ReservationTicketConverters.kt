@@ -9,6 +9,7 @@ import com.google.gson.stream.JsonToken
 import com.google.gson.stream.JsonWriter
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seats
+import woowacourse.movie.domain.model.Theater
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -68,4 +69,10 @@ class ReservationTicketConverters {
 
     @TypeConverter
     fun toSeats(seatsString: String?): Seats? = gson.fromJson(seatsString, Seats::class.java)
+
+    @TypeConverter
+    fun fromTheater(theater: Theater?): String? = gson.toJson(theater)
+
+    @TypeConverter
+    fun toTheater(theaterString: String?): Theater? = gson.fromJson(theaterString, Theater::class.java)
 }
