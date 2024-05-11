@@ -74,4 +74,6 @@ dependencies {
     androidTestImplementation("io.kotest:kotest-runner-junit5:5.8.0")
     androidTestImplementation("de.mannodermaus.junit5:android-test-core:1.3.0")
     androidTestRuntimeOnly("de.mannodermaus.junit5:android-test-runner:1.3.0")
+
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.14")
 }
