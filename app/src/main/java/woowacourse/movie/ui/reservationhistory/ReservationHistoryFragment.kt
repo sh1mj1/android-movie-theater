@@ -17,7 +17,7 @@ class ReservationHistoryFragment : Fragment(), ReservationHistoryContract.View {
     private var _binding: FragmentReservationHistoryBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var presenter: ReservationHistoryPresenter
+    private lateinit var presenter: ReservationHistoryContract.Presenter
     private lateinit var adapter: ReservationHistoryAdapter
 
     override fun onCreateView(

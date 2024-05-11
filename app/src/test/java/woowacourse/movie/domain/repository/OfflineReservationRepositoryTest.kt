@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.data.FakeReservationTicketDao
+import woowacourse.movie.data.ReservationTicket
 import woowacourse.movie.data.ReservationTicketRoomDao
 import woowacourse.movie.domain.model.DateTime
 import woowacourse.movie.domain.model.Grade
@@ -18,7 +19,7 @@ import woowacourse.movie.domain.model.TimeReservation
 
 class OfflineReservationRepositoryTest {
     private lateinit var fakeDao: ReservationTicketRoomDao
-    private lateinit var repository: OfflineReservationRepository
+    private lateinit var repository: ReservationRepository
 
     @BeforeEach
     fun setUp() {
@@ -69,9 +70,9 @@ class OfflineReservationRepositoryTest {
         // then
         assertThat(result).isEqualTo(
             listOf(
-                Reservation(1, Screen.NULL, Ticket(seats1.count()), seats1, DateTime.NULL),
-                Reservation(2, Screen.NULL, Ticket(seats2.count()), seats2, DateTime.NULL),
-                Reservation(3, Screen.NULL, Ticket(seats3.count()), seats3, DateTime.NULL),
+                ReservationTicket(1, Screen.NULL, DateTime.NULL.date, DateTime.NULL.time, seats1, Theater.NULL.name),
+                ReservationTicket(2, Screen.NULL, DateTime.NULL.date, DateTime.NULL.time, seats2, Theater.NULL.name),
+                ReservationTicket(3, Screen.NULL, DateTime.NULL.date, DateTime.NULL.time, seats3, Theater.NULL.name),
             ),
         )
     }
