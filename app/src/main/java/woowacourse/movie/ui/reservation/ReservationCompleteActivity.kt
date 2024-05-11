@@ -7,10 +7,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import woowacourse.movie.R
+import woowacourse.movie.data.ReservationTicket
 import woowacourse.movie.data.ReservationTicketDatabase
 import woowacourse.movie.databinding.ActivityReservationCompleteBinding
-import woowacourse.movie.domain.model.Reservation
-import woowacourse.movie.domain.repository.DummyTheaters
 import woowacourse.movie.domain.repository.OfflineReservationRepository
 
 class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.View {
@@ -26,16 +25,15 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.Vie
     }
 
     private fun initPresenter() {
-        val reservationId = intent.getIntExtra(PUT_EXTRA_KEY_RESERVATION_ID, DEFAULT_RESERVATION_ID)
-        val theaterId =
-            intent.getIntExtra(PUT_EXTRA_THEATER_ID_KEY, DEFAULT_THEATER_ID)
+        val reservationTicketId = intent.getIntExtra(PUT_EXTRA_KEY_RESERVATION_TICKET_ID, DEFAULT_RESERVATION_TICKET_ID)
+
         presenter =
             ReservationPresenter(
                 this,
                 OfflineReservationRepository(
                     ReservationTicketDatabase.getDatabase(applicationContext).reservationDao(),
                 ),
-                DummyTheaters(), theaterId, reservationId,
+                reservationTicketId,
             )
     }
 
@@ -43,13 +41,9 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.Vie
         presenter.loadReservation()
     }
 
-    override fun showReservation(
-        reservation: Reservation,
-        theaterName: String,
-    ) {
-        binding.reservation = reservation
-        binding.theaterName = theaterName
-        binding.totalPrice = reservation.seats.totalPrice()
+    override fun showReservation(reservationTicket: ReservationTicket) {
+        binding.reservationTicket = reservationTicket
+        binding.totalPrice = reservationTicket.totalPrice()
     }
 
     override fun showReservationFail(throwable: Throwable) {
@@ -61,19 +55,15 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.Vie
     }
 
     companion object {
-        private const val PUT_EXTRA_KEY_RESERVATION_ID = "reservationId"
-        private const val PUT_EXTRA_THEATER_ID_KEY = "theaterId"
-        private const val DEFAULT_RESERVATION_ID = -1
-        private const val DEFAULT_THEATER_ID = -1
+        private const val PUT_EXTRA_KEY_RESERVATION_TICKET_ID = "reservationTicketId"
+        private const val DEFAULT_RESERVATION_TICKET_ID = -1
 
         fun startActivity(
             context: Context,
-            reservationId: Int,
-            theaterId: Int,
+            reservationTicketId: Int,
         ) {
             val intent = Intent(context, ReservationCompleteActivity::class.java)
-            intent.putExtra(PUT_EXTRA_KEY_RESERVATION_ID, reservationId)
-            intent.putExtra(PUT_EXTRA_THEATER_ID_KEY, theaterId)
+            intent.putExtra(PUT_EXTRA_KEY_RESERVATION_TICKET_ID, reservationTicketId)
             context.startActivity(intent)
         }
     }

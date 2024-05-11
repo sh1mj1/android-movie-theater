@@ -9,16 +9,12 @@
         <import type="woowacourse.movie.ui.MoneyUi" />
 
         <variable
-            name="reservation"
-            type="woowacourse.movie.domain.model.Reservation" />
+            name="reservationTicket"
+            type="woowacourse.movie.data.ReservationTicket" />
 
         <variable
             name="totalPrice"
             type="int" />
-
-        <variable
-            name="theaterName"
-            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:text="@{reservation.screen.movie.title}"
+            android:text="@{reservationTicket.screen.movie.title}"
             android:textColor="@color/black"
             android:textSize="25dp"
             android:textStyle="bold"
@@ -63,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
-            android:text="@{String.valueOf(reservation.dateTime.date)}"
+            android:text="@{String.valueOf(reservationTicket.date)}"
             android:textColor="@color/black"
             android:textSize="20dp"
             app:layout_constraintEnd_toStartOf="@id/tv_reservation_time"
@@ -76,7 +72,7 @@
             android:id="@+id/tv_reservation_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(reservation.dateTime.time)}"
+            android:text="@{String.valueOf(reservationTicket.time)}"
             android:textColor="@color/black"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_reservation_date"
@@ -102,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:text="@{@string/reserve_count(reservation.ticket.count)}"
+                android:text="@{@string/reserve_count(reservationTicket.seats.count())}"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 tools:text="일반 2명 | " />
@@ -114,7 +110,7 @@
                 android:layout_marginEnd="10dp"
                 android:textColor="@color/black"
                 android:textSize="20dp"
-                seats:textFormat="@{reservation.seats.seats}"
+                seats:textFormat="@{reservationTicket.seats.seats}"
                 tools:text="B3, B4 | " />
 
             <TextView
@@ -123,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{theaterName}"
+                android:text="@{reservationTicket.theater.name}"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 tools:text="강남 극장" />

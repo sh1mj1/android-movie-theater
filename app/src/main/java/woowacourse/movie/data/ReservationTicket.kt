@@ -21,6 +21,8 @@ data class ReservationTicket(
     val seats: Seats,
     val theater: Theater = Theater.NULL,
 ) {
+    fun totalPrice() = seats.totalPrice()
+
     companion object {
         val NULL =
             ReservationTicket(

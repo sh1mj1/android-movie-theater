@@ -1,13 +1,10 @@
 package woowacourse.movie.ui.reservation
 
-import woowacourse.movie.domain.model.Reservation
+import woowacourse.movie.data.ReservationTicket
 
 interface ReservationContract {
     interface View {
-        fun showReservation(
-            reservation: Reservation,
-            theaterName: String,
-        )
+        fun showReservation(reservationTicket: ReservationTicket)
 
         fun showReservationFail(throwable: Throwable)
     }
