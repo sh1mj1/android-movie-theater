@@ -46,10 +46,12 @@ object DummyReservation : ReservationRepository {
             it.id == timeReservationId
         } ?: throw NoSuchElementException("TimeReservation not found with timeReservationId: $timeReservationId.")
 
-    override fun findById(id: Int): Result<Reservation> {
+    override fun findById(id: Int): Result<ReservationTicket> {
         return runCatching {
-            val reservation = reservations.find { it.id == id }
-            reservation ?: throw IllegalArgumentException("예약 정보를 찾을 수 없습니다.")
+            // TODO: 개선
+//            val reservation = reservations.find { it.id == id }
+//            reservation ?: throw IllegalArgumentException("예약 정보를 찾을 수 없습니다.")
+            ReservationTicket.NULL
         }
     }
 }

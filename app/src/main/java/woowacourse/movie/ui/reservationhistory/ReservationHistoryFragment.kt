@@ -11,6 +11,7 @@ import woowacourse.movie.data.ReservationTicket
 import woowacourse.movie.data.ReservationTicketDatabase
 import woowacourse.movie.databinding.FragmentReservationHistoryBinding
 import woowacourse.movie.domain.repository.OfflineReservationRepository
+import woowacourse.movie.ui.reservation.ReservationCompleteActivity
 import woowacourse.movie.ui.reservationhistory.adapter.ReservationHistoryAdapter
 
 class ReservationHistoryFragment : Fragment(), ReservationHistoryContract.View {
@@ -52,9 +53,9 @@ class ReservationHistoryFragment : Fragment(), ReservationHistoryContract.View {
 
     private fun initAdapter() {
         adapter =
-            ReservationHistoryAdapter {
-                Log.d(TAG, "initAdapter: itemClicked $it")
-                // TODO: 예매 상세 내역으로 이동
+            ReservationHistoryAdapter { reservationId ->
+                Log.d(TAG, "initAdapter: itemClicked $reservationId")
+                showReservationHistoryInDetail(reservationId)
             }
         binding.rvReservationHistory.adapter = adapter
     }
@@ -66,6 +67,15 @@ class ReservationHistoryFragment : Fragment(), ReservationHistoryContract.View {
 
     override fun showAllReservationHistoryError(throwable: Throwable) {
         Toast.makeText(requireContext(), "예매 내역을 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
+    }
+
+    // TODO: 수정해야 함
+    override fun showReservationHistoryInDetail(reservationTicketId: Int) {
+        ReservationCompleteActivity.startActivity(
+            requireContext(),
+            reservationId = reservationTicketId,
+            theaterId = 1,
+        )
     }
 
     override fun onDestroyView() {

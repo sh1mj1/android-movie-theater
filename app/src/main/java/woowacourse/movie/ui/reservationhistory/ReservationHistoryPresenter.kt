@@ -13,9 +13,9 @@ class ReservationHistoryPresenter(
 
     override fun loadAllReservationHistory() {
         thread {
-            reservationRepository.loadAllReservationHistory().onSuccess { reservations ->
+            reservationRepository.loadAllReservationHistory().onSuccess { reservationTickets ->
                 uiHandler.post {
-                    view.showAllReservationHistory(reservations)
+                    view.showAllReservationHistory(reservationTickets)
                 }
             }.onFailure { e ->
                 uiHandler.post {

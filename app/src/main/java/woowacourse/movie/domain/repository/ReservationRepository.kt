@@ -2,7 +2,6 @@ package woowacourse.movie.domain.repository
 
 import woowacourse.movie.data.ReservationTicket
 import woowacourse.movie.domain.model.DateTime
-import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.domain.model.Theater
@@ -26,5 +25,5 @@ interface ReservationRepository {
 
     fun loadTimeReservation(timeReservationId: Int): TimeReservation
 
-    fun findById(id: Int): Result<Reservation>
+    fun findById(id: Int): Result<ReservationTicket>
 }

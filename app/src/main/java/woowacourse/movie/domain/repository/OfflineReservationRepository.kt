@@ -2,9 +2,7 @@ package woowacourse.movie.domain.repository
 
 import woowacourse.movie.data.ReservationTicket
 import woowacourse.movie.data.ReservationTicketDao
-import woowacourse.movie.data.toReservation
 import woowacourse.movie.domain.model.DateTime
-import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.domain.model.Theater
@@ -55,9 +53,9 @@ class OfflineReservationRepository(private val reservationTicketDao: Reservation
             it.id == timeReservationId
         } ?: throw NoSuchElementException("TimeReservation not found with timeReservationId: $timeReservationId.")
 
-    override fun findById(id: Int): Result<Reservation> =
+    override fun findById(id: Int): Result<ReservationTicket> =
         runCatching {
-            reservationTicketDao.findReservationById(id).toReservation()
+            reservationTicketDao.findReservationById(id)
         }
 
     companion object {

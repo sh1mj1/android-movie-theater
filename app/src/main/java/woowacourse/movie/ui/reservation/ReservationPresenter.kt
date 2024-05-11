@@ -2,6 +2,7 @@ package woowacourse.movie.ui.reservation
 
 import android.os.Handler
 import android.os.Looper
+import woowacourse.movie.data.toReservation
 import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.domain.repository.TheaterRepository
 import kotlin.concurrent.thread
@@ -21,7 +22,7 @@ class ReservationPresenter(
                 .onSuccess {
                     val theaterName = theaterRepository.findById(theaterId).name
                     uiHandler.post {
-                        view.showReservation(it, theaterName)
+                        view.showReservation(it.toReservation(), theaterName)
                     }
                 }
                 .onFailure { e ->
