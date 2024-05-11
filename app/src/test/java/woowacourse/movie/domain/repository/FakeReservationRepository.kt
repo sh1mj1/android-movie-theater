@@ -1,5 +1,6 @@
 package woowacourse.movie.domain.repository
 
+import woowacourse.movie.data.ReservationTicket
 import woowacourse.movie.domain.model.DateTime
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
@@ -13,6 +14,8 @@ class FakeReservationRepository : ReservationRepository {
         mutableListOf(
             Reservation.NULL,
         )
+
+    private val reservationTickets = mutableListOf<ReservationTicket>()
 
     private val timeReservations =
         mutableListOf(
@@ -49,7 +52,7 @@ class FakeReservationRepository : ReservationRepository {
             id
         }
 
-    override fun loadAllReservationHistory(): Result<List<Reservation>> = runCatching { reservations }
+    override fun loadAllReservationHistory(): Result<List<ReservationTicket>> = runCatching { reservationTickets }
 
     override fun loadTimeReservation(timeReservationId: Int): TimeReservation =
         timeReservations.find { it.id == timeReservationId }

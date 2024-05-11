@@ -19,7 +19,18 @@ data class ReservationTicket(
     val time: LocalTime,
     val seats: Seats,
     val theaterName: String,
-)
+) {
+    companion object {
+        val NULL =
+            ReservationTicket(
+                screen = Screen.NULL,
+                date = LocalDate.MIN,
+                time = LocalTime.MIN,
+                seats = Seats(),
+                theaterName = "",
+            )
+    }
+}
 
 fun ReservationTicket.toReservation(): Reservation {
     return Reservation(

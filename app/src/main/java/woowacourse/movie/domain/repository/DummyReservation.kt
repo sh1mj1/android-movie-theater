@@ -1,5 +1,6 @@
 package woowacourse.movie.domain.repository
 
+import woowacourse.movie.data.ReservationTicket
 import woowacourse.movie.domain.model.DateTime
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
@@ -36,7 +37,7 @@ object DummyReservation : ReservationRepository {
             id
         }
 
-    override fun loadAllReservationHistory(): Result<List<Reservation>> {
+    override fun loadAllReservationHistory(): Result<List<ReservationTicket>> {
         TODO("Not yet implemented")
     }
 

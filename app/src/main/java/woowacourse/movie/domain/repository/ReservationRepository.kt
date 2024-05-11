@@ -1,5 +1,6 @@
 package woowacourse.movie.domain.repository
 
+import woowacourse.movie.data.ReservationTicket
 import woowacourse.movie.domain.model.DateTime
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
@@ -21,7 +22,7 @@ interface ReservationRepository {
         dateTime: DateTime,
     ): Result<Int>
 
-    fun loadAllReservationHistory(): Result<List<Reservation>>
+    fun loadAllReservationHistory(): Result<List<ReservationTicket>>
 
     fun loadTimeReservation(timeReservationId: Int): TimeReservation
 

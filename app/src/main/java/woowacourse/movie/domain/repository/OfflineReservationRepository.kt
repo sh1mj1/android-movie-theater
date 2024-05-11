@@ -45,9 +45,9 @@ class OfflineReservationRepository(private val reservationTicketDao: Reservation
             id
         }
 
-    override fun loadAllReservationHistory(): Result<List<Reservation>> =
+    override fun loadAllReservationHistory(): Result<List<ReservationTicket>> =
         runCatching {
-            reservationTicketDao.findAll().map { it.toReservation() }
+            reservationTicketDao.findAll()
         }
 
     override fun loadTimeReservation(timeReservationId: Int): TimeReservation =
