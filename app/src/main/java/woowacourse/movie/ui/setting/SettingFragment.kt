@@ -1,6 +1,5 @@
 package woowacourse.movie.ui.setting
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,11 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import woowacourse.movie.databinding.FragmentSettingBinding
-import woowacourse.movie.preference.AppPreference
+import woowacourse.movie.preference.NotificationPreference
+import woowacourse.movie.preference.NotificationSharedPreferences
 
 class SettingFragment : Fragment() {
     private var _binding: FragmentSettingBinding? = null
     private val binding get() = _binding!!
+
+    private val notificationPreference: NotificationPreference by lazy {
+        NotificationSharedPreferences.getInstance(requireContext().applicationContext)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,27 +39,16 @@ class SettingFragment : Fragment() {
 
     private fun initChangePushNotificationListener() {
         binding.switchPushAlarm.setOnCheckedChangeListener { _, isChecked ->
-            val sharedPreferences =
-                requireContext().applicationContext.getSharedPreferences(
-                    AppPreference.APP_SETTINGS_PREFS,
-                    Context.MODE_PRIVATE,
-                )
-
-            sharedPreferences.edit().putBoolean(AppPreference.NOTIFICATION_ENABLED, isChecked).apply()
+            notificationPreference.saveNotificationPreference(enabled = isChecked)
             Log.d(
                 TAG,
-                "isNotificationEnabled: ${sharedPreferences.getBoolean(AppPreference.NOTIFICATION_ENABLED, false)}",
+                "notificationEnabled: ${notificationPreference.loadNotificationPreference()}",
             )
         }
     }
 
     private fun showInitialPushNotification() {
-        val sharedPreferences =
-            requireContext().applicationContext.getSharedPreferences(
-                AppPreference.APP_SETTINGS_PREFS,
-                Context.MODE_PRIVATE,
-            )
-        val pushNotificationsEnabled = sharedPreferences.getBoolean(AppPreference.NOTIFICATION_ENABLED, false)
+        val pushNotificationsEnabled = notificationPreference.loadNotificationPreference()
         binding.pushNotificationEnabled = pushNotificationsEnabled
     }
 
@@ -66,7 +59,6 @@ class SettingFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-
         Log.d(TAG, "onDestroy: ")
     }
 
