@@ -80,8 +80,8 @@ class SeatReservationPresenter(
                 selectedSeats,
                 timeReservation.dateTime,
                 theaterRepository.findById(theaterId),
-            ).onSuccess { reservationId ->
-                view.showCompleteReservation(reservationId.toInt(), theaterId)
+            ).onSuccess { reservationTicketId ->
+                view.showCompleteReservation(reservationTicketId.toInt())
             }.onFailure { e ->
                 view.showSeatReservationFail(e)
             }

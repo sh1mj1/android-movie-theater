@@ -139,11 +139,8 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
         alertDialog.show()
     }
 
-    override fun showCompleteReservation(
-        reservationId: Int,
-        theaterId: Int,
-    ) {
-        ReservationCompleteActivity.startActivity(this, reservationId, theaterId)
+    override fun showCompleteReservation(reservationTicketId: Int) {
+        ReservationCompleteActivity.startActivity(this, reservationTicketId)
     }
 
     override fun showSeatReservationFail(throwable: Throwable) {
