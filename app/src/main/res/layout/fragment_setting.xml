@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="pushNotificationEnabled"
+            type="boolean" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,10 +22,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
             android:text="푸시 알림 수신"
+            android:textColor="@color/black"
             android:textSize="16dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tv_content_push_alarm"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,6 +36,7 @@
             android:layout_height="24dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
+            android:checked="@{pushNotificationEnabled}"
             android:theme="@style/PushAlarmSwitch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_push_alarm_guide"
