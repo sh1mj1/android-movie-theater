@@ -9,6 +9,7 @@ import io.mockk.mockkStatic
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.data.ReservationTicket
 import woowacourse.movie.domain.repository.FakeReservationRepository
 
 class ReservationHistoryPresenterTest {
@@ -36,6 +37,6 @@ class ReservationHistoryPresenterTest {
         presenter.loadAllReservationHistory()
 
         // then
-        verify { mockView.showAllReservationHistory(emptyList()) }
+        verify { mockView.showAllReservationHistory(listOf(ReservationTicket.NULL)) }
     }
 }

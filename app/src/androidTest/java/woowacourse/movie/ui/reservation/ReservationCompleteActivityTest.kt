@@ -33,8 +33,7 @@ class ReservationCompleteActivityTest {
     val activityRule: ActivityScenarioRule<ReservationCompleteActivity> =
         ActivityScenarioRule<ReservationCompleteActivity>(
             Intent(ApplicationProvider.getApplicationContext(), ReservationCompleteActivity::class.java).apply {
-                putExtra("reservationId", 1)
-                putExtra("theaterId", 1)
+                putExtra("reservationTicketId", 1)
             },
         )
 

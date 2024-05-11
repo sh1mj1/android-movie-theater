@@ -15,7 +15,10 @@ class FakeReservationRepository : ReservationRepository {
             Reservation.NULL,
         )
 
-    private val reservationTickets = mutableListOf<ReservationTicket>()
+    private val reservationTickets =
+        mutableListOf(
+            ReservationTicket.NULL,
+        )
 
     private val timeReservations =
         mutableListOf(
@@ -58,9 +61,9 @@ class FakeReservationRepository : ReservationRepository {
         timeReservations.find { it.id == timeReservationId }
             ?: throw NoSuchElementException("TimeReservation not found with timeReservationId: $timeReservationId.")
 
-    override fun findById(id: Int): Result<Reservation> =
+    override fun findById(id: Int): Result<ReservationTicket> =
         runCatching {
-            val reservation = reservations.find { it.id == id }
-            reservation ?: throw NoSuchElementException()
+            val reservationTicket = reservationTickets.find { it.id == id }
+            reservationTicket ?: throw NoSuchElementException()
         }
 }

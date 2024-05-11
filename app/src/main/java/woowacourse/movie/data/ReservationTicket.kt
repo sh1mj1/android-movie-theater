@@ -26,6 +26,7 @@ data class ReservationTicket(
     companion object {
         val NULL =
             ReservationTicket(
+                id = -1,
                 screen = Screen.NULL,
                 date = LocalDate.MIN,
                 time = LocalTime.MIN,
