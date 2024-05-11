@@ -1,8 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.setting.SettingFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.setting.SettingFragment">
+
+        <TextView
+            android:id="@+id/tv_push_alarm_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="푸시 알림 수신"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_content_push_alarm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_push_alarm"
+            android:layout_width="40dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:theme="@style/PushAlarmSwitch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_push_alarm_guide"
+            tools:checked="true" />
+
+        <TextView
+            android:id="@+id/tv_content_push_alarm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="해제하면 푸시 알림을 수신할 수 없습니다. "
+            app:layout_constraintEnd_toStartOf="@id/switch_push_alarm"
+            app:layout_constraintStart_toStartOf="@id/tv_push_alarm_guide"
+            app:layout_constraintTop_toBottomOf="@id/tv_push_alarm_guide" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+
