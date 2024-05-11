@@ -1,10 +1,10 @@
 package woowacourse.movie.ui.reservationhistory
 
-import woowacourse.movie.domain.model.Reservation
+import woowacourse.movie.data.ReservationTicket
 
 interface ReservationHistoryContract {
     interface View {
-        fun showAllReservationHistory(reservations: List<Reservation>)
+        fun showAllReservationHistory(reservations: List<ReservationTicket>)
 
         fun showAllReservationHistoryError(throwable: Throwable)
     }

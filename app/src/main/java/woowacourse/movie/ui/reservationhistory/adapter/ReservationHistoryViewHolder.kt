@@ -1,17 +1,17 @@
 package woowacourse.movie.ui.reservationhistory.adapter
 
 import androidx.recyclerview.widget.RecyclerView
+import woowacourse.movie.data.ReservationTicket
 import woowacourse.movie.databinding.HolderReservationHistoryBinding
-import woowacourse.movie.domain.model.Reservation
 
 class ReservationHistoryViewHolder(
     private val binding: HolderReservationHistoryBinding,
     private val onItemClick: (id: Int) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(reservation: Reservation) {
-        binding.reservation = reservation
+    fun bind(reservationTicket: ReservationTicket) {
+        binding.reservationTicket = reservationTicket
         binding.root.setOnClickListener {
-            onItemClick(reservation.id)
+            onItemClick(reservationTicket.id)
         }
     }
 }

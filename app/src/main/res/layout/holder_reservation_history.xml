@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-            name="reservation"
-            type="woowacourse.movie.domain.model.Reservation" />
+            name="reservationTicket"
+            type="woowacourse.movie.data.ReservationTicket" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,8 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
+            android:text="@{String.valueOf(reservationTicket.date)}"
             android:textSize="12dp"
-            android:text="@{String.valueOf(reservation.dateTime.date)}"
             app:layout_constraintEnd_toStartOf="@id/tv_reservation_history_time"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:text="@{String.valueOf(reservation.dateTime.time)}"
+            android:text="@{String.valueOf(reservationTicket.time)}"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="@id/tv_reservation_history_date"
             app:layout_constraintStart_toEndOf="@id/tv_reservation_history_date"
@@ -43,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:text="@{reservationTicket.theaterName}"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="@id/tv_reservation_history_time"
             app:layout_constraintStart_toEndOf="@id/tv_reservation_history_time"
@@ -52,15 +54,15 @@
         <TextView
             android:id="@+id/tv_reservation_history_movie_title"
             android:layout_width="wrap_content"
-            android:text="@{reservation.screen.movie.title}"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="12dp"
+            android:text="@{reservationTicket.screen.movie.title}"
             android:textSize="16dp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_reservation_history_date"
             app:layout_constraintTop_toBottomOf="@id/tv_reservation_history_date"
-            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="해리 포터와 마법사의 돌" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

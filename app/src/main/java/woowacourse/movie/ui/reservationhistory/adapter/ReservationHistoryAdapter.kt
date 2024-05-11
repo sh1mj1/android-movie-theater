@@ -4,21 +4,21 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import woowacourse.movie.data.ReservationTicket
 import woowacourse.movie.databinding.HolderReservationHistoryBinding
-import woowacourse.movie.domain.model.Reservation
 
 class ReservationHistoryAdapter(
     private val onItemClick: (id: Int) -> Unit,
-) : ListAdapter<Reservation, ReservationHistoryViewHolder>(
-        object : DiffUtil.ItemCallback<Reservation>() {
+) : ListAdapter<ReservationTicket, ReservationHistoryViewHolder>(
+        object : DiffUtil.ItemCallback<ReservationTicket>() {
             override fun areItemsTheSame(
-                oldItem: Reservation,
-                newItem: Reservation,
+                oldItem: ReservationTicket,
+                newItem: ReservationTicket,
             ): Boolean = oldItem.id == newItem.id
 
             override fun areContentsTheSame(
-                oldItem: Reservation,
-                newItem: Reservation,
+                oldItem: ReservationTicket,
+                newItem: ReservationTicket,
             ): Boolean = oldItem == newItem
         },
     ) {

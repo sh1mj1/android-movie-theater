@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import woowacourse.movie.data.ReservationTicket
 import woowacourse.movie.data.ReservationTicketDatabase
 import woowacourse.movie.databinding.FragmentReservationHistoryBinding
-import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.repository.OfflineReservationRepository
 import woowacourse.movie.ui.reservationhistory.adapter.ReservationHistoryAdapter
 
@@ -59,7 +59,7 @@ class ReservationHistoryFragment : Fragment(), ReservationHistoryContract.View {
         binding.rvReservationHistory.adapter = adapter
     }
 
-    override fun showAllReservationHistory(reservations: List<Reservation>) {
+    override fun showAllReservationHistory(reservations: List<ReservationTicket>) {
         adapter.submitList(reservations)
         Log.d(TAG, "showAllReservationHistory: $reservations")
     }
