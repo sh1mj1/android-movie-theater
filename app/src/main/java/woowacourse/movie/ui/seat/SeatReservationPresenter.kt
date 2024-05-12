@@ -9,6 +9,8 @@ import woowacourse.movie.domain.repository.DummyTheaters
 import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.domain.repository.ScreenRepository
 import woowacourse.movie.domain.repository.TheaterRepository
+import java.time.LocalDateTime
+import java.time.ZoneId
 import kotlin.concurrent.thread
 
 class SeatReservationPresenter(
@@ -81,9 +83,20 @@ class SeatReservationPresenter(
                 timeReservation.dateTime,
                 theaterRepository.findById(theaterId),
             ).onSuccess { reservationTicketId ->
+                setAlarm(reservationTicketId.toInt())
                 view.showCompleteReservation(reservationTicketId.toInt())
             }.onFailure { e ->
                 view.showSeatReservationFail(e)
+            }
+        }
+    }
+
+    override fun setAlarm(reservationTicketId: Int) {
+        thread {
+            reservationRepository.findById(reservationTicketId).onSuccess { reservationTicket ->
+                val movieDateTime = LocalDateTime.of(reservationTicket.date, reservationTicket.time)
+                val movieTimeMillis = movieDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+                view.setAlarm(movieTimeMillis)
             }
         }
     }
