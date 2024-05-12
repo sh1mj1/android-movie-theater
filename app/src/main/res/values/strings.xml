@@ -33,4 +33,6 @@
     <string name="reserve_amount">%s (현장 결제)</string>
     <string name="reservation_complete_currency_format">%s(현장 결제)</string>
 
+    <string name="push_notification_guide">영화 예매 알림을 받기 위해서는 알림 권한이 필요합니다. 설정에서 권한을 허용해주세요.</string>
+
 </resources>

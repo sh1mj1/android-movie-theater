@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -35,9 +34,16 @@ class MainActivity : AppCompatActivity() {
         (application as MovieReservationApplication).notificationPreference
     }
 
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            notificationPreference.saveNotificationPreference(isGranted)
+            if (!isGranted) {
+                showPermissionSnackBar()
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG, "onCreate: ")
         if (savedInstanceState == null) {
             addFirstFragment(reservationHistoryFragment)
         }
@@ -66,30 +72,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun requestPermission() {
-        when {
-            Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU -> return
-            hasPermission() -> {
-                Log.d(TAG, "requestPermission: 이미 권한이 있어서 다시 요청하지 않음")
-                notificationPreference.saveNotificationPreference(true)
-            }
-
-            !hasPermission() -> {
-                if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
-                    Log.d(TAG, "requestPermission: 이전에 요청을 거부했어서 안내 메시지를 보여줘야 해.")
-                    showPermissionSnackBar()
-                } else {
-                    Log.d(TAG, "requestPermission: 처음 권한 요청이라 바로 dialog")
-                    requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-                }
-            }
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace(R.id.fragment_container_view, fragment)
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        notificationPreference.saveNotificationPreference(checkedPermission())
-        Log.d(TAG, "onResume: notificationPreference: ${notificationPreference.loadNotificationPreference()}")
+    private fun requestPermission() {
+        when {
+            Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU -> return
+            hasPermission() -> notificationPreference.saveNotificationPreference(true)
+            !hasPermission() -> showPermissionChangingGuide()
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -99,52 +94,37 @@ class MainActivity : AppCompatActivity() {
             Manifest.permission.POST_NOTIFICATIONS,
         ) == PackageManager.PERMISSION_GRANTED
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun showPermissionChangingGuide() {
+        if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+            showPermissionSnackBar()
+        } else {
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
+    }
+
+    private fun showPermissionSnackBar() {
+        Snackbar.make(binding.root, R.string.push_notification_guide, Snackbar.LENGTH_LONG).setAction(R.string.ok) {
+            startApplicationDetailSettings()
+        }.show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        notificationPreference.saveNotificationPreference(checkedPermission())
+    }
+
     private fun checkedPermission(): Boolean {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return true
         return hasPermission()
     }
 
-    private fun showPermissionSnackBar() {
-        Log.d(TAG, "showPermissionSnackBar: called")
-        Snackbar.make(
-            binding.root,
-            "알림 권한이 필요합니다",
-            Snackbar.LENGTH_LONG,
-        ).setAction("확인") {
-            createdSettingsIntent()
-        }.show()
-    }
-
-    private fun createdSettingsIntent() {
+    private fun startApplicationDetailSettings() {
         val intent =
             Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 data = Uri.fromParts("package", packageName, null)
             }
         startActivity(intent)
-    }
-
-    private val requestPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            Log.d(TAG, "requestPermissionLauncher: granted: $isGranted")
-            notificationPreference.saveNotificationPreference(isGranted)
-
-            if (isGranted) {
-                Log.d(TAG, "requestPermissionLauncher: 권한 허용")
-            } else {
-                Log.d(TAG, "requestPermissionLauncher: 권한 거부")
-                showPermissionSnackBar()
-            }
-        }
-
-    private fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager.commit {
-            setReorderingAllowed(true)
-            replace(R.id.fragment_container_view, fragment)
-        }
-    }
-
-    companion object {
-        private const val TAG = "MainActivity"
     }
 }
