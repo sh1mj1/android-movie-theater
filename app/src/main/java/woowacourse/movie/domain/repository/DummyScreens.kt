@@ -21,7 +21,7 @@ class DummyScreens(
                     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
                         "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
                 ),
-                dateRange = DateRange(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 3, 3)),
+                dateRange = DateRange(LocalDate.of(2024, 5, 13), LocalDate.of(2024, 5, 15)),
             ),
             Screen(
                 id = 2,
@@ -32,7 +32,7 @@ class DummyScreens(
                     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
                         "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
                 ),
-                dateRange = DateRange(LocalDate.of(2024, 3, 2), LocalDate.of(2024, 3, 4)),
+                dateRange = DateRange(LocalDate.of(2024, 5, 13), LocalDate.of(2024, 3, 17)),
             ),
             Screen(
                 id = 3,
@@ -43,7 +43,7 @@ class DummyScreens(
                     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
                         "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
                 ),
-                dateRange = DateRange(LocalDate.of(2024, 3, 3), LocalDate.of(2024, 3, 5)),
+                dateRange = DateRange(LocalDate.of(2024, 5, 13), LocalDate.of(2024, 5, 19)),
             ),
             Screen(
                 id = 4,
@@ -54,7 +54,7 @@ class DummyScreens(
                     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
                         "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
                 ),
-                dateRange = DateRange(LocalDate.of(2024, 3, 4), LocalDate.of(2024, 3, 6)),
+                dateRange = DateRange(LocalDate.of(2024, 5, 13), LocalDate.of(2024, 5, 20)),
             ),
             Screen(
                 id = 5,
@@ -65,7 +65,7 @@ class DummyScreens(
                     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
                         "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
                 ),
-                dateRange = DateRange(LocalDate.of(2024, 3, 5), LocalDate.of(2024, 3, 7)),
+                dateRange = DateRange(LocalDate.of(2024, 5, 13), LocalDate.of(2024, 5, 21)),
             ),
             Screen(
                 id = 6,
@@ -76,7 +76,7 @@ class DummyScreens(
                     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
                         "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
                 ),
-                dateRange = DateRange(LocalDate.of(2024, 3, 6), LocalDate.of(2024, 3, 8)),
+                dateRange = DateRange(LocalDate.of(2024, 5, 13), LocalDate.of(2024, 5, 24)),
             ),
             Screen(
                 id = 7,
@@ -87,7 +87,7 @@ class DummyScreens(
                     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
                         "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
                 ),
-                dateRange = DateRange(LocalDate.of(2024, 3, 7), LocalDate.of(2024, 3, 9)),
+                dateRange = DateRange(LocalDate.of(2024, 5, 13), LocalDate.of(2024, 5, 25)),
             ),
             Screen(
                 id = 8,
@@ -98,7 +98,7 @@ class DummyScreens(
                     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
                         "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
                 ),
-                dateRange = DateRange(LocalDate.of(2024, 3, 8), LocalDate.of(2024, 3, 10)),
+                dateRange = DateRange(LocalDate.of(2024, 5, 13), LocalDate.of(2024, 5, 25)),
             ),
             Screen(
                 id = 9,
@@ -109,7 +109,7 @@ class DummyScreens(
                     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
                         "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
                 ),
-                dateRange = DateRange(LocalDate.of(2024, 3, 9), LocalDate.of(2024, 3, 11)),
+                dateRange = DateRange(LocalDate.of(2024, 5, 13), LocalDate.of(2024, 5, 26)),
             ),
             Screen(
                 id = 10,
@@ -120,7 +120,7 @@ class DummyScreens(
                     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
                         "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
                 ),
-                dateRange = DateRange(LocalDate.of(2024, 3, 10), LocalDate.of(2024, 3, 12)),
+                dateRange = DateRange(LocalDate.of(2024, 5, 13), LocalDate.of(2024, 5, 27)),
             ),
             Screen(
                 id = 11,
@@ -131,7 +131,7 @@ class DummyScreens(
                     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
                         "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
                 ),
-                dateRange = DateRange(LocalDate.of(2024, 3, 11), LocalDate.of(2024, 3, 13)),
+                dateRange = DateRange(LocalDate.of(2024, 5, 13), LocalDate.of(2024, 5, 28)),
             ),
             Screen(
                 id = 12,
@@ -142,7 +142,7 @@ class DummyScreens(
                     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
                         "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
                 ),
-                dateRange = DateRange(LocalDate.of(2024, 3, 12), LocalDate.of(2024, 3, 14)),
+                dateRange = DateRange(LocalDate.of(2024, 5, 13), LocalDate.of(2024, 5, 29)),
             ),
         )
 
