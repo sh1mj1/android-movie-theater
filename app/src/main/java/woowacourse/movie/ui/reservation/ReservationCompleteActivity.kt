@@ -55,8 +55,8 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.Vie
     }
 
     companion object {
-        private const val PUT_EXTRA_KEY_RESERVATION_TICKET_ID = "reservationTicketId"
-        private const val DEFAULT_RESERVATION_TICKET_ID = -1
+        const val PUT_EXTRA_KEY_RESERVATION_TICKET_ID = "reservationTicketId"
+        const val DEFAULT_RESERVATION_TICKET_ID = -1
 
         fun startActivity(
             context: Context,

@@ -4,8 +4,8 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -24,9 +24,9 @@ import woowacourse.movie.domain.repository.DummyTheaters
 import woowacourse.movie.domain.repository.OfflineReservationRepository
 import woowacourse.movie.ui.pushnotification.PushNotificationBroadCastReceiver
 import woowacourse.movie.ui.reservation.ReservationCompleteActivity
+import woowacourse.movie.ui.reservation.ReservationCompleteActivity.Companion.PUT_EXTRA_KEY_RESERVATION_TICKET_ID
 import woowacourse.movie.ui.seat.adapter.OnSeatSelectedListener
 import woowacourse.movie.ui.seat.adapter.SeatsAdapter
-import java.util.Date
 import java.util.concurrent.TimeUnit
 
 class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.View {
@@ -157,22 +157,55 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
         showToast(throwable)
     }
 
-    override fun setAlarm(movieTimeMillis: Long) {
-        runOnUiThread {
-            scheduleAlarm(movieTimeMillis)
+    override fun setAlarm(
+        movieTimeMillis: Long,
+        reservationTicketId: Int,
+    ) {
+        scheduleAlarm(movieTimeMillis, reservationTicketId)
+    }
+
+    private fun scheduleAlarm(
+        movieTime: Long,
+        reservationTicketId: Int,
+    ) {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent =
+            Intent(applicationContext, PushNotificationBroadCastReceiver::class.java).apply {
+                putExtra(PUT_EXTRA_KEY_RESERVATION_TICKET_ID, reservationTicketId)
+            }
+        val pendingIntent = pendingIntent(intent)
+        setAlarmForVersion(alarmManager, movieTime, pendingIntent)
+    }
+
+    private fun setAlarmForVersion(
+        alarmManager: AlarmManager,
+        movieTime: Long,
+        pendingIntent: PendingIntent,
+    ) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (alarmManager.canScheduleExactAlarms()) {
+                alarmManager.setExact(
+                    AlarmManager.RTC_WAKEUP,
+                    movieTime - TimeUnit.MINUTES.toMillis(30),
+                    pendingIntent,
+                )
+            }
+        } else {
+            alarmManager.set(
+                AlarmManager.RTC_WAKEUP,
+                movieTime - TimeUnit.MINUTES.toMillis(30),
+                pendingIntent,
+            )
         }
     }
 
-    private fun scheduleAlarm(movieTime: Long) {
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(this, PushNotificationBroadCastReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-
-        // 영화 상영 시간 1시간 전에 알람을 설정합니다.
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, movieTime - TimeUnit.HOURS.toMillis(1), pendingIntent)
-
-        Log.d("Alarm", "Alarm set for ${Date(movieTime - TimeUnit.HOURS.toMillis(1))}")
-    }
+    private fun pendingIntent(intent: Intent): PendingIntent =
+        PendingIntent.getBroadcast(
+            this,
+            PushNotificationBroadCastReceiver.MOVIE_RESERVATION_REMINDER_REQUEST_CODE,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+        )
 
     private fun showToast(e: Throwable) {
         Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()

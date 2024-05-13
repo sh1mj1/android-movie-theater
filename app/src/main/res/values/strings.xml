@@ -37,4 +37,7 @@
 
     <string name="push_notification_change_guide">푸시 알림 권한 설정 창에서 변경해주세요.</string>
 
+    <string name="movie_reservation_reminder_title">영화 예약 리마인더</string>
+    <string name="movie_reservation_reminder_content">영화가 %d분 이후에 시작합니다.</string>
+
 </resources>

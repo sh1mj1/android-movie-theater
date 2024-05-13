@@ -1,5 +1,7 @@
 package woowacourse.movie.ui.seat
 
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import woowacourse.movie.domain.model.Position
 import woowacourse.movie.domain.model.Screen
@@ -21,6 +23,8 @@ class SeatReservationPresenter(
     private val theaterId: Int,
     timeReservationId: Int,
 ) : SeatReservationContract.Presenter {
+    private val uiHandler = Handler(Looper.getMainLooper())
+
     private val timeReservation: TimeReservation = reservationRepository.loadTimeReservation(timeReservationId)
     private val loadedAllSeats: Seats = screenRepository.seats(timeReservation.screen.id)
     private val ticketCount = timeReservation.ticket.count
@@ -83,7 +87,7 @@ class SeatReservationPresenter(
                 timeReservation.dateTime,
                 theaterRepository.findById(theaterId),
             ).onSuccess { reservationTicketId ->
-                setAlarm(reservationTicketId.toInt())
+                schedulePushAlarm(reservationTicketId.toInt())
                 view.showCompleteReservation(reservationTicketId.toInt())
             }.onFailure { e ->
                 view.showSeatReservationFail(e)
@@ -91,12 +95,12 @@ class SeatReservationPresenter(
         }
     }
 
-    override fun setAlarm(reservationTicketId: Int) {
-        thread {
-            reservationRepository.findById(reservationTicketId).onSuccess { reservationTicket ->
-                val movieDateTime = LocalDateTime.of(reservationTicket.date, reservationTicket.time)
-                val movieTimeMillis = movieDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
-                view.setAlarm(movieTimeMillis)
+    private fun schedulePushAlarm(reservationTicketId: Int) {
+        reservationRepository.findById(reservationTicketId).onSuccess { reservationTicket ->
+            val movieDateTime = LocalDateTime.of(reservationTicket.date, reservationTicket.time)
+            val movieTimeMillis = movieDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+            uiHandler.post {
+                view.setAlarm(movieTimeMillis, reservationTicketId)
             }
         }
     }
