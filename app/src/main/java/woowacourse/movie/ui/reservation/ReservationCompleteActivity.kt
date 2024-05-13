@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import woowacourse.movie.R
@@ -11,6 +12,7 @@ import woowacourse.movie.data.ReservationTicket
 import woowacourse.movie.data.ReservationTicketDatabase
 import woowacourse.movie.databinding.ActivityReservationCompleteBinding
 import woowacourse.movie.domain.repository.OfflineReservationRepository
+import woowacourse.movie.ui.MainActivity
 
 class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.View {
     private lateinit var presenter: ReservationContract.Presenter
@@ -22,6 +24,22 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.Vie
         super.onCreate(savedInstanceState)
         initPresenter()
         initView()
+
+        onBackPressedCallback()
+    }
+
+    private fun onBackPressedCallback() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val intent = Intent(this@ReservationCompleteActivity, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    startActivity(intent)
+                    finish()
+                }
+            },
+        )
     }
 
     private fun initPresenter() {
