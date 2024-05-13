@@ -27,6 +27,10 @@ import woowacourse.movie.domain.model.Theater
 import java.time.LocalDate
 import java.time.LocalTime
 
+/**
+ * db 를 만들어서 테스트
+ * 별도로 테스트 돌려야 합니다.
+ */
 @RunWith(AndroidJUnit4::class)
 class ReservationCompleteActivityTest {
     @get:Rule

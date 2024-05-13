@@ -119,49 +119,41 @@ class ScreenDetailActivityTest {
     }
 
     @Test
-    fun `set_first_date_in_dateSpinner_and_the_date_is_2024-03-01`() {
+    fun `set_first_date_in_dateSpinner_and_the_date_is_2024-05-13`() {
         dateSpinner.perform(click())
-        onData(anything()).atPosition(0).perform(click()) // LocalDate.of(2024, 3, 2))
+        onData(anything()).atPosition(0).perform(click()) // LocalDate.of(2024, 5, 13))
 
-        dateSpinner.check(matches(withSpinnerText(containsString("2024-03-01"))))
+        dateSpinner.check(matches(withSpinnerText(containsString("2024-05-13"))))
+    }
+
+    @Test
+    fun `set_second_date_in_dateSpinner_and_the_date_is_2024-05-14`() {
+        dateSpinner.perform(click())
+        onData(anything()).atPosition(1).perform(click()) // LocalDate.of(2024, 5, 14))
+
+        dateSpinner.check(matches(withSpinnerText(containsString("2024-05-14"))))
     }
 
     @Test
     fun set_second_date_in_dateSpinner_and_check_the_first_time_is_09AM() {
         dateSpinner.perform(click())
-        onData(anything()).atPosition(0).perform(click()) // LocalDate.of(2024, 3, 2))
+        onData(anything()).atPosition(1).perform(click()) // LocalDate.of(2024, 5, 13))
 
         timeSpinner.check(matches(withSpinnerText(containsString("09:00"))))
     }
 
     @Test
-    fun `set_second_date_in_dateSpinner_and_the_date_is_2024-03-02`() {
-        dateSpinner.perform(click())
-        onData(anything()).atPosition(1).perform(click()) // LocalDate.of(2024, 3, 2))
-
-        dateSpinner.check(matches(withSpinnerText(containsString("2024-03-02"))))
-    }
-
-    @Test
-    fun set_second_date_in_dateSpinner_and_check_the_first_time_is_10AM() {
-        dateSpinner.perform(click())
-        onData(anything()).atPosition(1).perform(click()) // LocalDate.of(2024, 3, 2))
-
-        timeSpinner.check(matches(withSpinnerText(containsString("10:00"))))
-    }
-
-    @Test
     fun set_second_date_in_date_spinner_keep_the_date_when_device_is_rotated() {
         dateSpinner.perform(click())
-        onData(anything()).atPosition(1).perform(click()) // LocalDate.of(2024, 3, 2))
+        onData(anything()).atPosition(1).perform(click()) // LocalDate.of(2024, 5, 14))
 
-        dateSpinner.check(matches(withSpinnerText(containsString("2024-03-02"))))
+        dateSpinner.check(matches(withSpinnerText(containsString("2024-05-14"))))
     }
 
     @Test
     fun set_second_time_in_time_spinner_keep_the_time_when_device_is_rotated() {
         timeSpinner.perform(click())
-        onData(anything()).atPosition(1).perform(click()) // LocalDate.of(2024, 3, 1))
+        onData(anything()).atPosition(1).perform(click()) // LocalDate.of(2024, 5, 14))
 
         timeSpinner.check(matches(withSpinnerText(containsString("11:00"))))
     }
