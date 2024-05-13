@@ -2,7 +2,6 @@ package woowacourse.movie.ui.detail.view
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
@@ -67,22 +66,10 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
     }
 
     override fun showDate(position: Int) {
-        Log.d(TAG, "showDate: position: $position")
-
-//        이 코드는 안 됨.
-//        binding.spnDate.setSelection(position)
-
-//        이 코드는 됨
         binding.spnDate.post { binding.spnDate.setSelection(position) }
     }
 
     override fun showTime(position: Int) {
-        Log.d(TAG, "showTime: position: $position")
-
-//        이 코드는 안됨.
-//        binding.spnTime.setSelection(position)
-
-        // 이 코드는 됨.
         binding.spnDate.post { binding.spnTime.setSelection(position) }
     }
 
@@ -92,9 +79,5 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
 
     override fun selectedTimePosition(): Int {
         return binding.spnTime.selectedItemPosition
-    }
-
-    companion object {
-        const val TAG = "ScreenDetailDateTimeSpinnerView"
     }
 }

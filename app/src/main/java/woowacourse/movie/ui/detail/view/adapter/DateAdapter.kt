@@ -15,7 +15,6 @@ class DateAdapter(
     private val onItemSelectedListener: OnItemSelectedListener,
 ) : ArrayAdapter<LocalDate>(context, android.R.layout.simple_spinner_item, dateRange.allDates()), AdapterView.OnItemSelectedListener {
     init {
-        Log.d(TAG, "init: ")
         this.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     }
 
@@ -25,12 +24,11 @@ class DateAdapter(
         position: Int,
         id: Long,
     ) {
-        Log.d(TAG, "onItemSelected: position: $position, ")
         onItemSelectedListener.onItemSelected(position)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        Log.e("ScreenDetailDateTimeSpinnerView", "Nothing Selected")
+        Log.e(TAG, "Nothing Selected")
     }
 
     companion object {
